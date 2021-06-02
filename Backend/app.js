@@ -6,62 +6,29 @@ const mongoose = require('mongoose')
 // npm install dotenv
 require('dotenv/config')
 
-const api = process.env.API_URL
-
 // Middleware
 app.use(express.json())
 app.use(morgan('tiny'))
 
-// Le Schema du model
-const productSchema = mongoose.Schema({
-    name: String,
-    image: String,
-    countInStock: {
-        type: Number,
-        required: true,
-    },
-})
+// Routers
+const categoriesRoutes = require('./routes/categories.js')
+const productsRoutes = require('./routes/products')
+const usersRoutes = require('./routes/users')
+const ordersRoutes = require('./routes/orders')
 
-const Product = mongoose.model('Product', productSchema)
+const api = process.env.API_URL
 
-// http://localhost:3000/api/v1/products
-app.get(`${api}/products`, async (req, res) => {
-    const productList = await Product.find()
-
-    if (!productList) {
-        res.status(500).json({
-            success: false,
-        })
-    }
-    res.send(productList)
-})
-
-app.post(`${api}/products`, (req, res) => {
-    const product = new Product({
-        name: req.body.name,
-        image: req.body.image,
-        countInStock: req.body.countInStock,
-    })
-
-    product
-        .save()
-        .then((createdProduct) => {
-            res.status(201).json(createdProduct)
-        })
-        .catch((err) => {
-            res.status(500).json({
-                error: err,
-                success: false,
-            })
-        })
-})
+app.use(`${api}/categories`, productsRoutes)
+app.use(`${api}/products`, productsRoutes)
+app.use(`${api}/users`, productsRoutes)
+app.use(`${api}/orders`, productsRoutes)
 
 // appelé avant le démarrage du server
 mongoose
     .connect(process.env.CONNECTION_STRING, {
         useNewUrlParser: true, // Pour lui dire que j'utilise un nouveau ParserJSON @see express.json()
         useUnifiedTopology: true,
-        dbName: 'eshop-database',
+        dbName: 'shop-database',
     })
     .then(() => {
         console.log('Database connection is ready')
@@ -71,6 +38,5 @@ mongoose
     })
 
 app.listen(3000, () => {
-    console.log(api)
     console.log('server is running now : http://localhost:3000')
 })
