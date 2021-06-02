@@ -2,9 +2,11 @@ const express = require('express')
 const app = express()
 const morgan = require('morgan')
 const mongoose = require('mongoose')
-
-// npm install dotenv
+const cors = require('cors')
 require('dotenv/config')
+
+app.use(cors())
+app.options('*', cors())
 
 // Middleware
 app.use(express.json())
@@ -18,10 +20,10 @@ const ordersRoutes = require('./routes/orders')
 
 const api = process.env.API_URL
 
-app.use(`${api}/categories`, productsRoutes)
+app.use(`${api}/categories`, categoriesRoutes)
 app.use(`${api}/products`, productsRoutes)
-app.use(`${api}/users`, productsRoutes)
-app.use(`${api}/orders`, productsRoutes)
+app.use(`${api}/users`, usersRoutes)
+app.use(`${api}/orders`, ordersRoutes)
 
 // appelé avant le démarrage du server
 mongoose
@@ -37,6 +39,7 @@ mongoose
         console.log(error)
     })
 
+// Listen server
 app.listen(3000, () => {
     console.log('server is running now : http://localhost:3000')
 })
