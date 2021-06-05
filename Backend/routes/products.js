@@ -3,9 +3,12 @@ const { Category } = require('../models/category')
 const express = require('express')
 const router = express.Router()
 
-// http://localhost:3000/api/v1/products
+/**
+ * Récupération de tous les produits
+ * @see http://localhost:3000/api/v1/products
+ */
 router.get(`/`, async (req, res) => {
-    const productList = await Product.find()
+    const productList = await Product.find().select(['name', 'image', '-_id'])
 
     if (!productList) {
         res.status(500).json({
@@ -13,6 +16,21 @@ router.get(`/`, async (req, res) => {
         })
     }
     res.send(productList)
+})
+
+/**
+ * Récupération d'un produit grâce à son ID
+ *
+ */
+router.get('/:id', async (req, res) => {
+    const product = await Product.findById(req.params.id)
+
+    if (!product) {
+        res.status(500).json({
+            success: false,
+        })
+    }
+    res.send(product)
 })
 
 /**
