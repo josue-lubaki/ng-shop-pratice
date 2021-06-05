@@ -85,4 +85,27 @@ router.delete('/:id', async (req, res) => {
         })
 })
 
+/**
+ * La Mise à jour d'un enregistrement via son ID
+ * @method findByIdAndUpdate()
+ * @see {new : true} : pour demander le renvoi de la nouvelle mise à jour et non l'ancienne
+ */
+router.put('/:id', async (req, res) => {
+    const category = await Category.findByIdAndUpdate(
+        req.params.id,
+        {
+            name: req.body.name,
+            icon: req.body.icon,
+            color: req.body.color,
+        },
+        { new: true }
+    )
+
+    if (!category) {
+        return res.status(400).send('the category cannot be update')
+    }
+
+    res.send(category)
+})
+
 module.exports = router
