@@ -74,6 +74,7 @@ router.post(`/`, async (req, res) => {
 /**
  * Mettre à jour un produit via son ID
  * @method findByIdAndUpdate()
+ * @method isValidObjectId()
  * @see {new : true} : pour demander le renvoi de la nouvelle mise à jour et non l'ancienne
  */
 router.put('/:id', async (req, res) => {
@@ -136,6 +137,58 @@ router.delete(`/:id`, async (req, res) => {
                 error: err,
             })
         })
+})
+
+/**
+ * Methode qui permet de calculer le nombre des Products dans la collections Products
+ * @method countDocuments()
+ */
+router.get('/get/count', async (req, res) => {
+    const productCount = await Product.countDocuments((count) => count)
+
+    if (!productCount) {
+        res.status(500).json({
+            success: false,
+        })
+    }
+    res.send({
+        productCount: productCount,
+    })
+})
+
+/**
+ * Récuperer tous les produits ayant le champ "Featured" à true
+ * @method find()
+ */
+router.get('/get/featured', async (req, res) => {
+    const products = await Product.find({ isFeatured: true })
+
+    if (!products) {
+        res.status(500).json({
+            success: false,
+        })
+    }
+    res.send({
+        products: products,
+    })
+})
+
+/**
+ * Récupérer un nombre fixe des produits featured, le nombre passé en paramètre
+ * @see +count : caster le type de la variable en Number (Raison du +)
+ */
+router.get('/get/featured/:id', async (req, res) => {
+    const count = req.params.id ? req.params.id : 0
+    const products = await Product.find({ isFeatured: true }).limit(+count)
+
+    if (!products) {
+        res.status(500).json({
+            success: false,
+        })
+    }
+    res.send({
+        products: products,
+    })
 })
 
 module.exports = router
