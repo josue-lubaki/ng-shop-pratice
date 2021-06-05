@@ -8,7 +8,9 @@ const router = express.Router()
  * @see http://localhost:3000/api/v1/products
  */
 router.get(`/`, async (req, res) => {
-    const productList = await Product.find().select(['name', 'image', '-_id'])
+    const productList = await Product.find()
+        .select(['name', 'image', '-_id', 'category'])
+        .populate('category')
 
     if (!productList) {
         res.status(500).json({
@@ -23,7 +25,7 @@ router.get(`/`, async (req, res) => {
  *
  */
 router.get('/:id', async (req, res) => {
-    const product = await Product.findById(req.params.id)
+    const product = await Product.findById(req.params.id).populate('category')
 
     if (!product) {
         res.status(500).json({
@@ -63,6 +65,43 @@ router.post(`/`, async (req, res) => {
 
     if (!product) {
         return res.status(500).send('The product cannot be craeted')
+    }
+
+    res.send(product)
+})
+
+/**
+ * Mettre à jour un produit via son ID
+ * @method findByIdAndUpdate()
+ * @see {new : true} : pour demander le renvoi de la nouvelle mise à jour et non l'ancienne
+ */
+router.put('/:id', async (req, res) => {
+    // Vérifier l'existence de la catgorie avant de mettre à jour un produit
+    const category = await Category.findById(req.body.category)
+    if (!category) {
+        return res.status(400).send('invalid Category')
+    }
+
+    const product = await Product.findByIdAndUpdate(
+        req.params.id,
+        {
+            name: req.body.name,
+            description: req.body.description,
+            richDescription: req.body.richDescription,
+            image: req.body.image,
+            brand: req.body.brand,
+            price: req.body.price,
+            category: req.body.category,
+            countInStock: req.body.countInStock,
+            rating: req.body.rating,
+            numReviews: req.body.numReviews,
+            isFeatured: req.body.isFeatured,
+        },
+        { new: true }
+    )
+
+    if (!product) {
+        return res.status(400).send('the product cannot be updated')
     }
 
     res.send(product)
