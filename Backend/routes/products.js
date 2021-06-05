@@ -9,9 +9,12 @@ const mongoose = require('mongoose')
  * @see http://localhost:3000/api/v1/products
  */
 router.get(`/`, async (req, res) => {
-    const productList = await Product.find()
-        .select(['name', 'image', '_id', 'category'])
-        .populate('category')
+    let filter = {}
+    if (req.query.categories) {
+        filter = { category: req.query.categories.split(',') }
+    }
+
+    const productList = await Product.find(filter).populate('category')
 
     if (!productList) {
         res.status(500).json({
