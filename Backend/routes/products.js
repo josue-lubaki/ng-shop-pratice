@@ -2,6 +2,7 @@ const { Product } = require('../models/product')
 const { Category } = require('../models/category')
 const express = require('express')
 const router = express.Router()
+const mongoose = require('mongoose')
 
 /**
  * Récupération de tous les produits
@@ -9,7 +10,7 @@ const router = express.Router()
  */
 router.get(`/`, async (req, res) => {
     const productList = await Product.find()
-        .select(['name', 'image', '-_id', 'category'])
+        .select(['name', 'image', '_id', 'category'])
         .populate('category')
 
     if (!productList) {
@@ -76,6 +77,10 @@ router.post(`/`, async (req, res) => {
  * @see {new : true} : pour demander le renvoi de la nouvelle mise à jour et non l'ancienne
  */
 router.put('/:id', async (req, res) => {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+        return res.status(400).send('Invalid Produit Id')
+    }
+
     // Vérifier l'existence de la catgorie avant de mettre à jour un produit
     const category = await Category.findById(req.body.category)
     if (!category) {
@@ -105,6 +110,32 @@ router.put('/:id', async (req, res) => {
     }
 
     res.send(product)
+})
+
+/**
+ * Suppression d'un produit via son ID
+ */
+router.delete(`/:id`, async (req, res) => {
+    Product.findByIdAndDelete(req.params.id)
+        .then((product) => {
+            if (product)
+                return res.status(200).json({
+                    success: true,
+                    message: 'The product is deleted',
+                })
+            else {
+                return res.status(404).json({
+                    success: false,
+                    message: 'product not found !',
+                })
+            }
+        })
+        .catch((err) => {
+            return res.status(400).json({
+                success: false,
+                error: err,
+            })
+        })
 })
 
 module.exports = router
