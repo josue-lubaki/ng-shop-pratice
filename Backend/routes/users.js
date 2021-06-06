@@ -39,6 +39,7 @@ router.get('/:id', async (req, res) => {
 /**
  * Création d'un Utilisateur
  * @method findById()
+ * @method jwt.sign(base_du_token, mot_secret, delai_de_vie_du_token)
  * @see http://localhost:3000/api/v1/users
  */
 router.post(`/`, async (req, res) => {
@@ -131,6 +132,78 @@ router.post('/login', async (req, res) => {
     } else {
         res.status(400).send('Password is wrong')
     }
+})
+
+/**
+ * Methode qui permet d'enregistrer un Utilisateur
+ * @method findOne()
+ * @method jwt.sign(base_du_token, mot_secret, delai_de_vie_du_token)
+ */
+router.post('/register', async (req, res) => {
+    let user = new User({
+        name: req.body.name,
+        email: req.body.email,
+        passwordHash: bcrypt.hashSync(req.body.password, 10),
+        phone: req.body.phone,
+        isAdmin: req.body.isAdmin,
+        street: req.body.street,
+        apartement: req.body.apartement,
+        zip: req.body.zip,
+        city: req.body.city,
+        country: req.body.country,
+    })
+
+    user = user.save()
+
+    if (!user) {
+        return res.status(400).send('The user cannot be created')
+    }
+
+    res.send(user)
+})
+
+/**
+ * Methode qui permet de calculer le nombre des Utilisateurs dans la collections Users
+ * @method countDocuments()
+ * @see http://localhost:3000/api/v1/users/get/count
+ */
+router.get('/get/count', async (req, res) => {
+    const userCount = await User.countDocuments((count) => count)
+
+    if (!userCount) {
+        res.status(500).json({
+            success: false,
+        })
+    }
+    res.send({
+        userCount: userCount,
+    })
+})
+
+/**
+ * Suppression d'un Utilisateur via son ID
+ */
+router.delete(`/:id`, async (req, res) => {
+    User.findByIdAndDelete(req.params.id)
+        .then((user) => {
+            if (user)
+                return res.status(200).json({
+                    success: true,
+                    message: 'The user is deleted',
+                })
+            else {
+                return res.status(404).json({
+                    success: false,
+                    message: 'user not found !',
+                })
+            }
+        })
+        .catch((err) => {
+            return res.status(400).json({
+                success: false,
+                error: err,
+            })
+        })
 })
 
 module.exports = router
