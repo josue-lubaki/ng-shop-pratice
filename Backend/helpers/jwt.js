@@ -6,6 +6,7 @@ function authJwt() {
     return expressJwt({
         secret,
         algorithms: ['HS256'],
+        isRevoked: isRevoked, // SECURE : User Role
     }).unless({
         path: [
             {
@@ -20,6 +21,21 @@ function authJwt() {
             `${api}/users/register`,
         ],
     })
+}
+
+/**
+ * Methode qui permet de bloquer les autres actions (POST, DELETE, UPDATE) pour les Utilisateurs ayant un token dont
+ * le champ "isAdmin" serait false. À présent, que les Utilisateurs étant admin:true peuvent (POST, DELETE, UPDATE)
+ * @param {*} req
+ * @param {*} payload  type de retour (ex: DATA)
+ * @param {*} done(callback, reject)
+ */
+async function isRevoked(req, payload, done) {
+    if (!payload.isAdmin) {
+        done(null, true)
+    }
+
+    done()
 }
 
 module.exports = authJwt
