@@ -145,6 +145,7 @@ router.delete(`/:id`, async (req, res) => {
 /**
  * Methode qui permet de calculer le nombre des Products dans la collections Products
  * @method countDocuments()
+ * @see http://localhost:3000/api/v1/products/get/count
  */
 router.get('/get/count', async (req, res) => {
     const productCount = await Product.countDocuments((count) => count)
@@ -162,26 +163,13 @@ router.get('/get/count', async (req, res) => {
 /**
  * Récuperer tous les produits ayant le champ "Featured" à true
  * @method find()
- */
-router.get('/get/featured', async (req, res) => {
-    const products = await Product.find({ isFeatured: true })
-
-    if (!products) {
-        res.status(500).json({
-            success: false,
-        })
-    }
-    res.send({
-        products: products,
-    })
-})
-
-/**
+ * @see http://localhost:3000/api/v1/products/get/featured/[:count]
+ *
  * Récupérer un nombre fixe des produits featured, le nombre passé en paramètre
  * @see +count : caster le type de la variable en Number (Raison du +)
  */
-router.get('/get/featured/:id', async (req, res) => {
-    const count = req.params.id ? req.params.id : 0
+router.get('/get/featured/:count', async (req, res) => {
+    const count = req.params.count ? req.params.count : 0
     const products = await Product.find({ isFeatured: true }).limit(+count)
 
     if (!products) {
@@ -189,9 +177,7 @@ router.get('/get/featured/:id', async (req, res) => {
             success: false,
         })
     }
-    res.send({
-        products: products,
-    })
+    res.send(products)
 })
 
 module.exports = router
