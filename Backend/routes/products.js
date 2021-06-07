@@ -117,7 +117,7 @@ router.post(`/`, uploadOptions.single('image'), async (req, res) => {
  * @method isValidObjectId()
  * @see {new : true} : pour demander le renvoi de la nouvelle mise à jour et non l'ancienne
  */
-router.put('/:id', async (req, res) => {
+router.put('/:id', uploadOptions.single('image'), async (req, res) => {
     if (!mongoose.isValidObjectId(req.params.id)) {
         return res.status(400).send('Invalid Produit Id')
     }
@@ -128,13 +128,31 @@ router.put('/:id', async (req, res) => {
         return res.status(400).send('invalid Category')
     }
 
-    const product = await Product.findByIdAndUpdate(
+    // Vérifier si le produit existe
+    const product = await Product.findById(req.params.id)
+    if (!product) {
+        return res.status(400).send('Invalid Product')
+    }
+
+    // Si L'Utilisateur désire changer l'image
+    const file = req.file
+    let imagePath
+
+    if (file) {
+        const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`
+        const fileName = file.filename
+        imagePath = `${basePath}${fileName}`
+    } else {
+        imagePath = product.image
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(
         req.params.id,
         {
             name: req.body.name,
             description: req.body.description,
             richDescription: req.body.richDescription,
-            image: req.body.image,
+            image: imagePath,
             brand: req.body.brand,
             price: req.body.price,
             category: req.body.category,
@@ -146,11 +164,11 @@ router.put('/:id', async (req, res) => {
         { new: true }
     )
 
-    if (!product) {
+    if (!updatedProduct) {
         return res.status(500).send('the product cannot be updated')
     }
 
-    res.send(product)
+    res.send(updatedProduct)
 })
 
 /**
@@ -219,6 +237,9 @@ router.get('/get/featured/:count', async (req, res) => {
 
 /**
  * Mettre à jour le tableau d'image pour un produit
+ * @see req.files accès au tableau
+ * @see file.filename le nom du fichier
+ * @method array ('fieldName', maxNumberImages)
  */
 router.put(
     '/gallery-images/:id',
