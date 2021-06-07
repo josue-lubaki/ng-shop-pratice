@@ -79,6 +79,12 @@ router.post(`/`, uploadOptions.single('image'), async (req, res) => {
         return res.status(400).send('invalid Category')
     }
 
+    // Vérifier si l'image existe dans la requête
+    const file = req.file
+    if (!file) {
+        return res.status(400).send('No Image in the request')
+    }
+
     const fileName = req.file.filename
     const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`
 
@@ -141,7 +147,7 @@ router.put('/:id', async (req, res) => {
     )
 
     if (!product) {
-        return res.status(400).send('the product cannot be updated')
+        return res.status(500).send('the product cannot be updated')
     }
 
     res.send(product)
@@ -210,5 +216,43 @@ router.get('/get/featured/:count', async (req, res) => {
     }
     res.send(products)
 })
+
+/**
+ * Mettre à jour le tableau d'image pour un produit
+ */
+router.put(
+    '/gallery-images/:id',
+    uploadOptions.array('images', 10),
+    async (req, res) => {
+        mongoose.set('useFindAndModify', false) // https://mongoosejs.com/docs/deprecations.html#findandmodify
+        if (!mongoose.isValidObjectId(req.params.id)) {
+            return res.status(400).send('Invalid Product ID')
+        }
+
+        const files = req.files
+        let imagesPaths = []
+        const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`
+
+        if (files) {
+            files.map((file) => {
+                imagesPaths.push(`${basePath}${file.filename}`)
+            })
+        }
+
+        const product = await Product.findByIdAndUpdate(
+            req.params.id,
+            {
+                images: imagesPaths,
+            },
+            { new: true }
+        )
+
+        if (!product) {
+            return res.status(500).send('the product cannot be updated')
+        }
+
+        res.send(product)
+    }
+)
 
 module.exports = router
