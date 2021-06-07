@@ -1,6 +1,7 @@
 const { Order } = require('../models/order')
 const { OrderItem } = require('../models/order-item')
 const express = require('express')
+const mongoose = require('mongoose')
 const router = express.Router()
 
 /**
@@ -158,6 +159,64 @@ router.delete('/:id', async (req, res) => {
                 error: err,
             })
         })
+})
+
+/**
+ * connaître la somme totale des commandes Vendues
+ * @method aggregate ({$group: {_id:null, name : { $fonctionAggregate : 'nameFieldModel' } } })
+ * @see http://localhost:3000/api/v1/orders/get/totalsales
+ */
+router.get('/get/totalsales', async (req, res) => {
+    const totalSales = await Order.aggregate([
+        { $group: { _id: null, totalSales: { $sum: '$totalPrice' } } },
+    ])
+
+    if (!totalSales) {
+        return res.status(400).send('The order sales cannot be generated')
+    }
+    res.send({ totalSales: totalSales.pop().totalSales })
+})
+
+/**
+ * Methode qui permet de calculer le nombre des Products dans la collections Products
+ * @method countDocuments()
+ * @see http://localhost:3000/api/v1/orders/get/count
+ */
+router.get('/get/count', async (req, res) => {
+    const orderCount = await Order.countDocuments((count) => count)
+
+    if (!orderCount) {
+        res.status(500).json({
+            success: false,
+        })
+    }
+    res.send({
+        orderCount: orderCount,
+    })
+})
+
+/**
+ * Récupération du detail d'une commande d'un utilisation via son ID
+ * @see http://localhost:3000/api/v1/orders/get/userorder/[:userid]
+ */
+router.get(`/get/userorder/:userid`, async (req, res) => {
+    if (!mongoose.isValidObjectId(req.params.userid)) {
+        return res.status(400).send('Invalid user Id')
+    }
+
+    const userOrderList = await Order.find({ user: req.params.userid })
+        .populate({
+            path: 'orderItems',
+            populate: { path: 'product', populate: 'category' },
+        })
+        .sort({ dateOrdered: -1 })
+
+    if (!userOrderList) {
+        res.status(500).json({
+            success: false,
+        })
+    }
+    res.send(userOrderList)
 })
 
 module.exports = router
