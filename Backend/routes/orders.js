@@ -48,7 +48,9 @@ router.get(`/:id`, async (req, res) => {
  * @see /api/v1/orders
  */
 router.post('/', async (req, res) => {
-    const orderItemIds = Promise.all(
+    // Création des OrdersItems de la commande
+    // @return String[]
+    const orderItemIds = await Promise.all(
         req.body.orderItems.map(async (orderItem) => {
             let newOrderItem = new OrderItem({
                 quantity: orderItem.quantity,
@@ -59,12 +61,31 @@ router.post('/', async (req, res) => {
             return newOrderItem._id
         })
     )
-    const orderItemsIdsResolved = await orderItemIds
 
-    console.log(orderItemsIdsResolved)
+    // Calcul de la somme des OrderItems choisis
+    // @return Number[]
+    const totalPrices = await Promise.all(
+        orderItemIds.map(async (orderItemId) => {
+            const orderItem = await OrderItem.findById(orderItemId).populate(
+                'product',
+                'price'
+            )
 
+            return orderItem.product.price * orderItem.quantity
+        })
+    )
+
+    /**
+     * @method reduce (CallbackFunction, initialValue) : fonction d'accumulation
+     * calcul de tous les prix temporaires stockés dans le tableau "totalPrices"
+     * @return Number
+     */
+    const totalPrice = totalPrices.reduce((a, b) => a + b, 0)
+
+    // création de l'Objet Order de la collection Orders
+    // @return Order
     let order = new Order({
-        orderItems: orderItemsIdsResolved,
+        orderItems: orderItemIds,
         shippingAddress1: req.body.shippingAddress1,
         shippingAddress2: req.body.shippingAddress2,
         city: req.body.city,
@@ -72,7 +93,7 @@ router.post('/', async (req, res) => {
         country: req.body.country,
         phone: req.body.phone,
         status: req.body.status,
-        totalPrice: req.body.totalPrice,
+        totalPrice: totalPrice,
         user: req.body.user,
     })
 
