@@ -51,7 +51,9 @@
                         "tsConfig": "apps/ng-shop/tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "assets": ["apps/ng-shop/src/favicon.ico", "apps/ng-shop/src/assets"],
-                        "styles": ["apps/ng-shop/src/styles.scss"],
+                        "styles": [
+                          "apps/ng-shop/src/styles.scss"
+                        ],
                         "scripts": []
                     },
                     "configurations": {

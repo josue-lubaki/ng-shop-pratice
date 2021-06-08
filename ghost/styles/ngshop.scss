@@ -4,15 +4,21 @@
 @import './base/mixins.scss';
 @import './base/configuration.scss';
 
+// bootstrap
+// @import '~bootstrap/scss/bootstrap.scss';
+
+// Libraries
+@import '~primeicons/primeicons.css';
+@import '~primeng/resources/themes/saga-blue/theme.css';
+@import '~primeng/resources/primeng.min.css';
+
 // Pages
 @import './apps/shop/pages/home-page.scss';
 @import './apps/shop/pages/products-list-page.scss';
 
-
 // Shared
 @import './apps/shop/shared/header.scss';
 @import './apps/shop/shared/footer.scss';
-
 
 // Libs
 @import './libs/ui/ui.scss';
