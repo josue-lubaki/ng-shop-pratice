@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ghost-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+    selector: 'ngshop-root',
+    templateUrl: './app.component.html',
+    styleUrls: []
 })
 export class AppComponent {
-  title = 'ng-shop';
+    title = 'ng-shop';
 }
