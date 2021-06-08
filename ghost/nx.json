@@ -35,6 +35,15 @@
         },
         "ui": {
             "tags": []
+        },
+        "products": {
+            "tags": []
+        },
+        "users": {
+            "tags": []
+        },
+        "orders": {
+            "tags": []
         }
     }
 }
