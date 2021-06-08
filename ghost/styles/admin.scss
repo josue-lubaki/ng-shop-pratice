@@ -15,5 +15,8 @@
 @import './base/configuration.scss';
 @import '~primeflex/primeflex.css';
 
+// Shared
+@import './apps/admin/shell.scss';
+
 // Libs
 @import './libs/ui/ui.scss';
