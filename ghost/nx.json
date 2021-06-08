@@ -1,30 +1,37 @@
 {
-  "implicitDependencies": {
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
+    "implicitDependencies": {
+        "package.json": {
+            "dependencies": "*",
+            "devDependencies": "*"
+        },
+        ".eslintrc.json": "*"
     },
-    ".eslintrc.json": "*"
-  },
-  "affected": {
-    "defaultBase": "master"
-  },
-  "npmScope": "ghost",
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
-      }
-    }
-  },
-  "projects": {
-    "ng-shop": {
-      "tags": []
+    "affected": {
+        "defaultBase": "master"
     },
-    "ng-shop-e2e": {
-      "tags": [],
-      "implicitDependencies": ["ng-shop"]
+    "npmScope": "ghost",
+    "tasksRunnerOptions": {
+        "default": {
+            "runner": "@nrwl/workspace/tasks-runners/default",
+            "options": {
+                "cacheableOperations": ["build", "lint", "test", "e2e"]
+            }
+        }
+    },
+    "projects": {
+        "ng-shop": {
+            "tags": []
+        },
+        "ng-shop-e2e": {
+            "tags": [],
+            "implicitDependencies": ["ng-shop"]
+        },
+        "admin": {
+            "tags": []
+        },
+        "admin-e2e": {
+            "tags": [],
+            "implicitDependencies": ["admin"]
+        }
     }
-  }
 }

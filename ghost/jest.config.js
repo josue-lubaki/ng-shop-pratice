@@ -1,3 +1,3 @@
 module.exports = {
-  projects: ['<rootDir>/apps/ng-shop'],
+    projects: ['<rootDir>/apps/ng-shop', '<rootDir>/apps/admin']
 };
