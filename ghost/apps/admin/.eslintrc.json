@@ -10,7 +10,7 @@
                     "error",
                     {
                         "type": "attribute",
-                        "prefix": "ghost",
+                        "prefix": "ngshop",
                         "style": "camelCase"
                     }
                 ],
@@ -18,7 +18,7 @@
                     "error",
                     {
                         "type": "element",
-                        "prefix": "ghost",
+                        "prefix": "ngshop",
                         "style": "kebab-case"
                     }
                 ]
