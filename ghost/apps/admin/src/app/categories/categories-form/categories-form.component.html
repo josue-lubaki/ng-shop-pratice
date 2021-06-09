@@ -1,3 +1,4 @@
+<p-toast></p-toast> <!-- placer le Toast au top de la page -->
 <div class="admin-page">
   <p-card header="Add Categories" subheader="You can add or edit categories">
     <div class="p-grid p-mb-4">
@@ -5,7 +6,7 @@
         <p-toolbar>
           <div class="p-toolbar-group-left"></div>
           <div class="p-toolbar-group-right">
-             <p-button label="Create" icon="pi pi-plus" styleClass="p-button-primary p-mr-2"></p-button>
+             <p-button label="Create" icon="pi pi-plus" styleClass="p-button-primary p-mr-2" (click)="onSubmit()"></p-button>
              <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"></p-button>
           </div>
         </p-toolbar>
@@ -13,15 +14,17 @@
     </div>
     <div class="p-grid">
       <div class="p-col-12">
-        <form>
+        <form [formGroup]="form">
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col">
                 <label for="name">Name</label>
-                <input id="name" type="text" pInputText>
+                <input formControlName="name" id="name" type="text" pInputText>
+                <small *ngIf="categoryForm.name.invalid && isSubmitted" class="p-error">Name is required</small>
               </div>
               <div class="p-field p-col">
                 <label for="icon">Icon</label>
-                <input id="icon" type="text" pInputText>
+                <input formControlName="icon" id="icon" type="text" pInputText>
+                <small *ngIf="categoryForm.icon.invalid && isSubmitted" class="p-error">Name is required</small>
               </div>
             </div>
         </form>

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -16,8 +18,17 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
-const UX_MODULE = [CardModule, ToolbarModule, ButtonModule, TableModule, InputTextModule];
+const UX_MODULE = [
+    CardModule,
+    ToolbarModule,
+    ButtonModule,
+    TableModule,
+    InputTextModule,
+    ToastModule
+];
 
 const routes: Routes = [
     {
@@ -41,9 +52,24 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [AppComponent, DashboardComponent, ShellComponent, SidebarComponent, CategoriesListComponent, CategoriesFormComponent],
-    imports: [BrowserModule, RouterModule.forRoot(routes, { initialNavigation: 'enabled' }), UX_MODULE, HttpClientModule],
-    providers: [CategoriesService], // ce servise sera utilisé dans l'app Admin assez souvent
+    declarations: [
+        AppComponent,
+        DashboardComponent,
+        ShellComponent,
+        SidebarComponent,
+        CategoriesListComponent,
+        CategoriesFormComponent
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
+        FormsModule,
+        ReactiveFormsModule,
+        UX_MODULE
+    ],
+    providers: [CategoriesService, MessageService], // ce servise sera utilisé dans l'app Admin assez souvent
     bootstrap: [AppComponent]
 })
 export class AppModule {}
