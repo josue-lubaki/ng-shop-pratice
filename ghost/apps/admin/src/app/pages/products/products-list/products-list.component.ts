@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit } from '@angular/core';
-import { Product, ProductsService } from '@ghost/products';
+import { Router } from '@angular/router';
+import { CategoriesService, Product, ProductsService } from '@ghost/products';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'admin-products-list',
@@ -10,7 +12,13 @@ import { Product, ProductsService } from '@ghost/products';
 })
 export class ProductsListComponent implements OnInit {
     products: Product[] = [];
-    constructor(private productService: ProductsService) {}
+    constructor(
+        private productService: ProductsService,
+        private categoriesService: CategoriesService,
+        private messageService: MessageService,
+        private confirmationService: ConfirmationService,
+        private router: Router
+    ) {}
 
     ngOnInit(): void {
         this._getProducts();
@@ -27,10 +35,38 @@ export class ProductsListComponent implements OnInit {
     }
 
     deleteProduct(productId: string) {
-        return null;
+        this.confirmationService.confirm({
+            message: 'Do you want to Delete this product ?',
+            header: 'Delete Product',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                this.productService.deleteProduct(productId).subscribe(
+                    () => {
+                        this._getProducts();
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Success',
+                            detail: 'Product is deleted'
+                        });
+                    },
+                    () => {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Product is not deleted !'
+                        });
+                    }
+                );
+            },
+            reject: () => {}
+        });
     }
 
+    /**
+     * Methode qui permet la mise à jour d'un produit
+     * @param productId ID du produit dont on souhaite mettre à jour
+     */
     updateProduct(productId: string) {
-        return null;
+        this.router.navigateByUrl(`products/form/${productId}`);
     }
 }

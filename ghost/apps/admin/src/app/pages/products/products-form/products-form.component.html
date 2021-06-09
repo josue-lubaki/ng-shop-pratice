@@ -6,7 +6,7 @@
         <p-toolbar>
           <div class="p-toolbar-group-left"></div>
           <div class="p-toolbar-group-right">
-             <p-button [label]="editMode ? 'Update' : 'Create'" [icon]="editMode ? 'pi pi-pencil' :  'pi pi-plus'" styleClass="p-button-primary p-mr-2" ></p-button>
+             <p-button [label]="editMode ? 'Update' : 'Create'" [icon]="editMode ? 'pi pi-pencil' :  'pi pi-plus'" styleClass="p-button-primary p-mr-2" (click)="onSubmit()"></p-button>
              <p-button (click)="goBack()" label="Cancel" icon="pi pi-arrow-circle-left" styleClass="p-button-secondary"></p-button>
           </div>
         </p-toolbar>
@@ -46,6 +46,7 @@
                         [options]="categories"
                         formControlName="category"
                         optionLabel="name"
+                        optionValue="id"
                         [filter]="true"
                         filterBy="name"
                         [showClear]="true"

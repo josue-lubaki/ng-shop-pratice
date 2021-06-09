@@ -15,8 +15,8 @@ export class ProductsFormComponent implements OnInit {
     form!: FormGroup;
     isSubmitted = false;
     editMode = false;
-    currentCategoryId!: string;
-    imageDisplay!: string | ArrayBuffer | null;
+    currentProductId!: string;
+    imageDisplay!: string | ArrayBuffer | null | undefined;
     categories: Category[] = [];
 
     constructor(
@@ -49,7 +49,7 @@ export class ProductsFormComponent implements OnInit {
             description: ['', Validators.required],
             richDescription: [''],
             image: [''],
-            isFeatured: ['']
+            isFeatured: [false]
         });
     }
 
@@ -74,21 +74,17 @@ export class ProductsFormComponent implements OnInit {
         this.route.params.subscribe((params) => {
             if (params.id) {
                 this.editMode = true;
-                this.currentCategoryId = params.id;
+                this.currentProductId = params.id;
                 this.productsService.getProduct(params.id).subscribe((product) => {
                     this.productForm.name.setValue(product.name);
                     this.productForm.description.setValue(product.description);
-                    this.productForm.richDescription.setValue(product.richDescription);
-                    this.productForm.image.setValue(product.image);
-                    this.productForm.images.setValue(product.images);
                     this.productForm.brand.setValue(product.brand);
                     this.productForm.price.setValue(product.price);
-                    this.productForm.category.setValue(product.category);
+                    this.productForm.category.setValue(product.category?.id);
                     this.productForm.countInStock.setValue(product.countInStock);
-                    this.productForm.rating.setValue(product.rating);
-                    this.productForm.numReviews.setValue(product.numReviews);
                     this.productForm.isFeatured.setValue(product.isFeatured);
-                    this.productForm.dateCreated.setValue(product.dateCreated);
+                    this.productForm.richDescription.setValue(product.richDescription);
+                    this.imageDisplay = product.image;
                 });
             }
         });
@@ -121,26 +117,16 @@ export class ProductsFormComponent implements OnInit {
             return;
         }
 
-        const product: Product = {
-            id: this.currentCategoryId,
-            name: this.productForm.name.value,
-            description: this.productForm.description.value,
-            richDescription: this.productForm.richDescription.value,
-            image: this.productForm.image.value,
-            images: this.productForm.images.value,
-            brand: this.productForm.brand.value,
-            price: this.productForm.price.value,
-            category: this.productForm.category.value,
-            countInStock: this.productForm.countInStock.value,
-            rating: this.productForm.rating.value,
-            numReviews: this.productForm.numReviews.value,
-            dateCreated: this.productForm.dateCreated.value
-        };
+        const productFormData = new FormData();
+
+        Object.keys(this.productForm).map((key) => {
+            productFormData.append(key, this.productForm[key].value);
+        });
 
         if (this.editMode) {
-            this._updateCategory(product);
+            this._updateCategory(productFormData);
         } else {
-            this._addCategory(product);
+            this._addCategory(productFormData);
         }
     }
 
@@ -148,29 +134,29 @@ export class ProductsFormComponent implements OnInit {
      * Methode qui permet de faire la mise à jour d'une Categorie
      * @param product l'objet categorie à mettre à jour
      */
-    private _updateCategory(product: Product) {
-        // this.productsService.updateProduct(product).subscribe(
-        //     (response: Product) => {
-        //         this.messageService.add({
-        //             severity: 'success',
-        //             summary: 'Success',
-        //             detail: `product ${response.name} is update`
-        //         });
-        //         // Delai avant la rédirection vers la page précedente
-        //         timer(1500)
-        //             .toPromise()
-        //             .then(() => {
-        //                 this.goBack();
-        //             });
-        //     },
-        //     () => {
-        //         this.messageService.add({
-        //             severity: 'error',
-        //             summary: 'Error',
-        //             detail: 'product is not update !'
-        //         });
-        //     }
-        // );
+    private _updateCategory(productData: FormData) {
+        this.productsService.updateProduct(productData).subscribe(
+            (response: Product) => {
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: `product ${response.name} is update`
+                });
+                // Delai avant la rédirection vers la page précedente
+                timer(1500)
+                    .toPromise()
+                    .then(() => {
+                        this.goBack();
+                    });
+            },
+            () => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'product is not update !'
+                });
+            }
+        );
     }
 
     /**
@@ -178,34 +164,42 @@ export class ProductsFormComponent implements OnInit {
      * @param product : l'objet categorie à insérer
      * @method subscribe (fnCallbackSuccess, fnCallbackError, fnCallbackComplete)
      */
-    private _addCategory(product: Product) {
-        // this.productsService.createProduct(product).subscribe(
-        //     (response: Product) => {
-        //         this.messageService.add({
-        //             severity: 'success',
-        //             summary: 'Success',
-        //             detail: `product ${response.name} is created`
-        //         });
-        //         // Delai avant la rédirection vers la page précedente
-        //         timer(1500)
-        //             .toPromise()
-        //             .then(() => {
-        //                 this.goBack();
-        //             });
-        //     },
-        //     () => {
-        //         this.messageService.add({
-        //             severity: 'error',
-        //             summary: 'Error',
-        //             detail: 'product is not created !'
-        //         });
-        //     }
-        // );
+    private _addCategory(productData: FormData) {
+        this.productsService.createProduct(productData).subscribe(
+            (response: Product) => {
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: `product ${response.name} is created`
+                });
+                // Delai avant la rédirection vers la page précedente
+                timer(1500)
+                    .toPromise()
+                    .then(() => {
+                        this.goBack();
+                    });
+            },
+            () => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'product is not created !'
+                });
+            }
+        );
     }
 
+    /**
+     * Methode qui pemet de uploader une image
+     * @method patchValue() ajouter un champ une valeur dans un FormGroup
+     * @method updateValueAndValidity notifie s'il y a eu changement dans le formulaire
+     * @param event : le fichier image to upload
+     */
     onImageUpdload(event: any) {
         const file = event.target.files[0];
         if (file) {
+            this.form.patchValue({ image: file });
+            this.form.get('image')?.updateValueAndValidity();
             const fileReader = new FileReader();
             fileReader.readAsDataURL(file);
             fileReader.onload = () => {

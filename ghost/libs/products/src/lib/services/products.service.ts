@@ -30,32 +30,32 @@ export class ProductsService {
         return this.http.get<Product>(`${this.apiURLProducts}/${productID}`);
     }
 
-    // /**
-    //  * Methode qui permet de créer une Categorie
-    //  * @param category la categorie à créer
-    //  * @returns void
-    //  */
-    // createCategory(category: Category): Observable<Category> {
-    //     return this.http.post<Category>(this.apiURLCategories, category);
-    // }
+    /**
+     * Methode qui permet de créer une Categorie
+     * @param productData le Produit à créer
+     * @returns void
+     */
+    createProduct(productData: FormData): Observable<Product> {
+        return this.http.post<Category>(this.apiURLProducts, productData);
+    }
 
-    // /**
-    //  * Methode qui permet de créer une Categorie
-    //  * @param category la categorie à créer
-    //  * @returns void
-    //  */
-    // updateCategory(category: Category): Observable<Category> {
-    //     return this.http.put<Category>(
-    //         `${this.apiURLCategories}/${category.id}`,
-    //         category
-    //     );
-    // }
+    /**
+     * Methode qui permet de mettre à jour un Produit
+     * @param productData la Produit à créer
+     * @returns void
+     */
+    updateProduct(productData: FormData): Observable<Category> {
+        return this.http.put<Category>(
+            `${this.apiURLProducts}/${productData.get('id')}`,
+            productData
+        );
+    }
 
-    // /**
-    //  * Methode qui permet de supprimer une categorie
-    //  * @param categoryId id de la categorie à supprimer
-    //  */
-    // deleteCategory(categoryId: string): Observable<any> {
-    //     return this.http.delete<any>(`${this.apiURLCategories}/${categoryId}`);
-    // }
+    /**
+     * Methode qui permet de supprimer une categorie
+     * @param productId id du produit à supprimer
+     */
+    deleteProduct(productId: string): Observable<any> {
+        return this.http.delete<any>(`${this.apiURLProducts}/${productId}`);
+    }
 }
