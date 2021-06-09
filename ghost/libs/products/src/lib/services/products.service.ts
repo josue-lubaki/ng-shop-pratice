@@ -21,14 +21,14 @@ export class ProductsService {
         return this.http.get<Product[]>(this.apiURLProducts);
     }
 
-    // /**
-    //  * Methode qui permet la récupération un Produit depuis le Backend via son ID
-    //  * @param productID l'ID du Produit à récupérer
-    //  * @returns Observable<Product>
-    //  */
-    // getProduct(productID: string): Observable<Product> {
-    //     return this.http.get<Product>(`${this.apiURLProducts}/${productID}`);
-    // }
+    /**
+     * Methode qui permet la récupération un Produit depuis le Backend via son ID
+     * @param productID l'ID du Produit à récupérer
+     * @returns Observable<Product>
+     */
+    getProduct(productID: string): Observable<Product> {
+        return this.http.get<Product>(`${this.apiURLProducts}/${productID}`);
+    }
 
     // /**
     //  * Methode qui permet de créer une Categorie

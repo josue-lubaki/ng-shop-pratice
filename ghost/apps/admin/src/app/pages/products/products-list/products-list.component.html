@@ -27,7 +27,7 @@
               <ng-template pTemplate="body" let-product>
                   <tr>
                       <td>{{product.name}}</td>
-                      <td>{{product.image}}</td>
+                      <td><img src="{{product.image}}" style="width:100%" alt="{{product.name}} image"></td>
                       <td>{{product.price}}</td>
                       <td>{{product.countInStock}}</td>
                       <td>{{product.category.name}}</td>
