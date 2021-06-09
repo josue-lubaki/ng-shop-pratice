@@ -22,12 +22,22 @@ export class CategoriesService {
     /**
      * Methode qui permet de créer une Categorie
      * @param category la categorie à créer
-     * @returns
+     * @returns void
      */
     createCategory(category: Category): Observable<Category> {
         return this.http.post<Category>(
             'http://localhost:3000/api/v1/categories/',
             category
+        );
+    }
+
+    /**
+     * Methode qui permet de supprimer une categorie
+     * @param categoryId id de la categorie à supprimer
+     */
+    deleteCategory(categoryId: String): Observable<Object> {
+        return this.http.delete<Object>(
+            `http://localhost:3000/api/v1/categories/${categoryId}`
         );
     }
 }
