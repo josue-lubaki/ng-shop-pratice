@@ -16,7 +16,7 @@ export class ProductsFormComponent implements OnInit {
     isSubmitted = false;
     editMode = false;
     currentProductId!: string;
-    imageDisplay!: string | ArrayBuffer | null | undefined;
+    imageDisplay: string | ArrayBuffer | null | undefined;
     categories: Category[] = [];
 
     constructor(
@@ -48,7 +48,7 @@ export class ProductsFormComponent implements OnInit {
             countInStock: ['', Validators.required],
             description: ['', Validators.required],
             richDescription: [''],
-            image: [''],
+            image: ['', Validators.required],
             isFeatured: [false]
         });
     }
@@ -85,6 +85,9 @@ export class ProductsFormComponent implements OnInit {
                     this.productForm.isFeatured.setValue(product.isFeatured);
                     this.productForm.richDescription.setValue(product.richDescription);
                     this.imageDisplay = product.image;
+                    this.productForm.image.setValue(product.image);
+                    this.productForm.image.setValidators([]);
+                    this.productForm.image.updateValueAndValidity();
                 });
             }
         });
@@ -124,6 +127,7 @@ export class ProductsFormComponent implements OnInit {
         });
 
         if (this.editMode) {
+            productFormData.append('id', this.currentProductId);
             this._updateCategory(productFormData);
         } else {
             this._addCategory(productFormData);
