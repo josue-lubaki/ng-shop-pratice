@@ -14,9 +14,7 @@ export class CategoriesService {
      * @returns Observable<Category[]>
      */
     getCategories(): Observable<Category[]> {
-        return this.http.get<Category[]>(
-            'http://localhost:3000/api/v1/categories/'
-        );
+        return this.http.get<Category[]>('http://localhost:3000/api/v1/categories/');
     }
 
     /**
@@ -38,6 +36,18 @@ export class CategoriesService {
     createCategory(category: Category): Observable<Category> {
         return this.http.post<Category>(
             'http://localhost:3000/api/v1/categories/',
+            category
+        );
+    }
+
+    /**
+     * Methode qui permet de créer une Categorie
+     * @param category la categorie à créer
+     * @returns void
+     */
+    updateCategory(category: Category): Observable<Category> {
+        return this.http.put<Category>(
+            `http://localhost:3000/api/v1/categories/${category.id}`,
             category
         );
     }

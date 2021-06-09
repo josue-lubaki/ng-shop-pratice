@@ -75,7 +75,7 @@ const routes: Routes = [
         ReactiveFormsModule,
         UX_MODULE
     ],
-    providers: [CategoriesService, MessageService, ConfirmationService], // ce servise sera utilisé dans l'app Admin assez souvent
+    providers: [CategoriesService, MessageService, ConfirmationService], // ces services seront utilisés par dependance Injection
     bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -15,6 +15,7 @@ export class CategoriesFormComponent implements OnInit {
     form!: FormGroup;
     isSubmitted: boolean = false;
     editMode: boolean = false;
+    currentCategoryId!: string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -40,6 +41,7 @@ export class CategoriesFormComponent implements OnInit {
         this.route.params.subscribe((params) => {
             if (params.id) {
                 this.editMode = true;
+                this.currentCategoryId = params.id;
                 this.categoriesService.getCategory(params.id).subscribe((category) => {
                     this.categoryForm.name.setValue(category.name);
                     this.categoryForm.icon.setValue(category.icon);
@@ -61,10 +63,9 @@ export class CategoriesFormComponent implements OnInit {
     }
 
     /**
-     * methode declenché au click du button "Create"
+     * methode declenché au click du button "Create" ou "Update"
      * vérifie la validité des champs du formulaire
-     * @method subscribe (fnCallbackSuccess, fnCallbackError, fnCallbackComplete)
-     * @returns
+     * @returns void
      */
     onSubmit() {
         this.isSubmitted = true;
@@ -73,10 +74,53 @@ export class CategoriesFormComponent implements OnInit {
         }
 
         const category: Category = {
+            id: this.currentCategoryId,
             name: this.categoryForm.name.value,
             icon: this.categoryForm.icon.value
         };
 
+        if (this.editMode) {
+            this._updateCategory(category);
+        } else {
+            this._addCategory(category);
+        }
+    }
+
+    /**
+     * Methode qui permet de faire la mise à jour d'une Categorie
+     * @param category l'objet categorie à mettre à jour
+     */
+    private _updateCategory(category: Category) {
+        this.categoriesService.updateCategory(category).subscribe(
+            (response) => {
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Category is update'
+                });
+                // Delai avant la rédirection vers la page précedente
+                timer(1500)
+                    .toPromise()
+                    .then(() => {
+                        this.location.back();
+                    });
+            },
+            (error) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Category is not update !'
+                });
+            }
+        );
+    }
+
+    /**
+     * Methode qui permet de créer une categorie
+     * @param category : l'objet categorie à insérer
+     * @method subscribe (fnCallbackSuccess, fnCallbackError, fnCallbackComplete)
+     */
+    private _addCategory(category: Category) {
         this.categoriesService.createCategory(category).subscribe(
             (response) => {
                 this.messageService.add({
