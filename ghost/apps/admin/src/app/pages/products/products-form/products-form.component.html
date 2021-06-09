@@ -62,6 +62,10 @@
                     <textarea formControlName="description" pInputTextarea [rows]="5" [cols]="30"></textarea>
                     <small *ngIf="productForm.description.invalid && isSubmitted" class="p-error">Description is required</small>
                   </div>
+                   <div class="p-field p-col-12">
+                    <label for="richdescription">Product Details</label><br/>
+                    <p-editor formControlName="richdescription" [style]="{'height':'320px'}"></p-editor>
+                  </div>
              </div>
         </form>
       </div>
