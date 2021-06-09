@@ -28,14 +28,14 @@ export class CategoriesListComponent implements OnInit {
      * Methode qui permet de supprimer une Categorie
      * @param categoryId id de la category à Supprimer
      */
-    deleteCategory(categoryId: String) {
+    deleteCategory(categoryId: string) {
         this.confirmationService.confirm({
             message: 'Do you want to Delete this category ?',
             header: 'Delete Category',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.categoriesService.deleteCategory(categoryId).subscribe(
-                    (response) => {
+                    () => {
                         this._getCategories();
                         this.messageService.add({
                             severity: 'success',
@@ -43,7 +43,7 @@ export class CategoriesListComponent implements OnInit {
                             detail: 'Category is deleted'
                         });
                     },
-                    (error) => {
+                    () => {
                         this.messageService.add({
                             severity: 'error',
                             summary: 'Error',
@@ -71,7 +71,7 @@ export class CategoriesListComponent implements OnInit {
      * @param categoryId : L'Id de la categorie à mettre à jour
      * @returns void
      */
-    updateCategory(categoryId: String) {
+    updateCategory(categoryId: string) {
         this.router.navigateByUrl(`categories/form/${categoryId}`);
     }
 }

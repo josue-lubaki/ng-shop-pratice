@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Category } from '../models/category';
 import { Observable } from 'rxjs';
+import { environment } from '@env/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CategoriesService {
+    apiURLCategories = environment.apiURL + 'categories';
+
     constructor(private http: HttpClient) {}
 
     /**
@@ -14,7 +17,7 @@ export class CategoriesService {
      * @returns Observable<Category[]>
      */
     getCategories(): Observable<Category[]> {
-        return this.http.get<Category[]>('http://localhost:3000/api/v1/categories/');
+        return this.http.get<Category[]>(this.apiURLCategories);
     }
 
     /**
@@ -22,10 +25,8 @@ export class CategoriesService {
      * @param categoryId l'ID de la categorie à récupérer
      * @returns Observable<Category>
      */
-    getCategory(categoryId: String): Observable<Category> {
-        return this.http.get<Category>(
-            `http://localhost:3000/api/v1/categories/${categoryId}`
-        );
+    getCategory(categoryId: string): Observable<Category> {
+        return this.http.get<Category>(`${this.apiURLCategories}/${categoryId}`);
     }
 
     /**
@@ -34,10 +35,7 @@ export class CategoriesService {
      * @returns void
      */
     createCategory(category: Category): Observable<Category> {
-        return this.http.post<Category>(
-            'http://localhost:3000/api/v1/categories/',
-            category
-        );
+        return this.http.post<Category>(this.apiURLCategories, category);
     }
 
     /**
@@ -47,7 +45,7 @@ export class CategoriesService {
      */
     updateCategory(category: Category): Observable<Category> {
         return this.http.put<Category>(
-            `http://localhost:3000/api/v1/categories/${category.id}`,
+            `${this.apiURLCategories}/${category.id}`,
             category
         );
     }
@@ -56,9 +54,7 @@ export class CategoriesService {
      * Methode qui permet de supprimer une categorie
      * @param categoryId id de la categorie à supprimer
      */
-    deleteCategory(categoryId: String): Observable<Object> {
-        return this.http.delete<Object>(
-            `http://localhost:3000/api/v1/categories/${categoryId}`
-        );
+    deleteCategory(categoryId: string): Observable<any> {
+        return this.http.delete<any>(`${this.apiURLCategories}/${categoryId}`);
     }
 }

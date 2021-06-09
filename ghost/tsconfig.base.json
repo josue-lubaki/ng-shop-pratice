@@ -18,7 +18,8 @@
             "@ghost/ui": ["libs/ui/src/index.ts"],
             "@ghost/products": ["libs/products/src/index.ts"],
             "@ghost/orders": ["libs/orders/src/index.ts"],
-            "@ghost/users": ["libs/users/src/index.ts"]
+            "@ghost/users": ["libs/users/src/index.ts"],
+            "@env/*" : ["environments/*"]
         }
     },
     "exclude": ["node_modules", "tmp"]

@@ -1,5 +1,5 @@
 export class Category {
-    id?: String;
+    id?: string;
     name?: string;
     icon?: string;
     color?: string;
