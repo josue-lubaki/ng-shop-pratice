@@ -72,6 +72,11 @@ router.post(`/`, async (req, res) => {
  * @see http://localhost:3000/api/v1/users/[:id]
  */
 router.put('/:id', async (req, res) => {
+    mongoose.set('useFindAndModify', false) // https://mongoosejs.com/docs/deprecations.html#findandmodify
+    if (!mongoose.isValidObjectId(req.params.id)) {
+        return res.status(400).send('Invalid user ID')
+    }
+
     // Vérifier l'existence de l'Utilisateur
     const userExist = await User.findById(req.params.id)
     let newPasswordHash

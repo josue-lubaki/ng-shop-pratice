@@ -91,6 +91,10 @@ router.delete('/:id', async (req, res) => {
  * @see {new : true} : pour demander le renvoi de la nouvelle mise à jour et non l'ancienne
  */
 router.put('/:id', async (req, res) => {
+    mongoose.set('useFindAndModify', false) // https://mongoosejs.com/docs/deprecations.html#findandmodify
+    if (!mongoose.isValidObjectId(req.params.id)) {
+        return res.status(400).send('Invalid category ID')
+    }
     const category = await Category.findByIdAndUpdate(
         req.params.id,
         {
