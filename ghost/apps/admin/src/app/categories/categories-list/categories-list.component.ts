@@ -1,6 +1,7 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CategoriesService, Category } from '@ghost/products';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
@@ -15,7 +16,8 @@ export class CategoriesListComponent implements OnInit {
     constructor(
         private categoriesService: CategoriesService,
         private messageService: MessageService,
-        private confirmationService: ConfirmationService
+        private confirmationService: ConfirmationService,
+        private router: Router
     ) {}
 
     ngOnInit(): void {
@@ -54,9 +56,22 @@ export class CategoriesListComponent implements OnInit {
         });
     }
 
+    /**
+     * Getter qui permet de reécupérer toutes les categories
+     * @return Category[]
+     */
     private _getCategories() {
         this.categoriesService.getCategories().subscribe((category) => {
             this.categories = category;
         });
+    }
+
+    /**
+     * Methode qui permet la mise à jour d'une Categorie
+     * @param categoryId : L'Id de la categorie à mettre à jour
+     * @returns void
+     */
+    updateCategory(categoryId: String) {
+        this.router.navigateByUrl(`categories/form/${categoryId}`);
     }
 }

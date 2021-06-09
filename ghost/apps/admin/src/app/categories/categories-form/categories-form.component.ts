@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { CategoriesService, Category } from '@ghost/products';
 import { MessageService } from 'primeng/api';
 import { timer } from 'rxjs';
@@ -13,16 +14,38 @@ import { timer } from 'rxjs';
 export class CategoriesFormComponent implements OnInit {
     form!: FormGroup;
     isSubmitted: boolean = false;
+    editMode: boolean = false;
 
     constructor(
         private formBuilder: FormBuilder,
         private categoriesService: CategoriesService,
         private messageService: MessageService,
-        private location: Location
+        private location: Location,
+        private route: ActivatedRoute
     ) {}
 
     ngOnInit(): void {
         this.initForm();
+        this._checkEditMode();
+    }
+
+    /**
+     * Observable [subscribe()] qui permet de switcher la variable @code{editMode} à true si l'Utilisateur
+     * clique (Active) le router en cliquant sur le button edit.
+     * Récupère les informations de la categorie pour le binder sur le formulaire
+     * @method getCategory(categoryId) permet de recupérer les informations de la categorie
+     * @return void
+     */
+    private _checkEditMode() {
+        this.route.params.subscribe((params) => {
+            if (params.id) {
+                this.editMode = true;
+                this.categoriesService.getCategory(params.id).subscribe((category) => {
+                    this.categoryForm.name.setValue(category.name);
+                    this.categoryForm.icon.setValue(category.icon);
+                });
+            }
+        });
     }
 
     /**

@@ -20,6 +20,17 @@ export class CategoriesService {
     }
 
     /**
+     * Methode qui permet la récupération une categorie depuis le Backend via son ID
+     * @param categoryId l'ID de la categorie à récupérer
+     * @returns Observable<Category>
+     */
+    getCategory(categoryId: String): Observable<Category> {
+        return this.http.get<Category>(
+            `http://localhost:3000/api/v1/categories/${categoryId}`
+        );
+    }
+
+    /**
      * Methode qui permet de créer une Categorie
      * @param category la categorie à créer
      * @returns void
