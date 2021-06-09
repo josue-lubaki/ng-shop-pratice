@@ -63,9 +63,16 @@
                     <small *ngIf="productForm.description.invalid && isSubmitted" class="p-error">Description is required</small>
                   </div>
                    <div class="p-field p-col-12">
-                    <label for="richdescription">Product Details</label><br/>
-                    <p-editor formControlName="richdescription" [style]="{'height':'320px'}"></p-editor>
+                    <label for="richDescription">Product Details</label><br/>
+                    <p-editor formControlName="richDescription" [style]="{'height':'320px'}"></p-editor>
                   </div>
+                   <div class="p-field p-col-12">
+                      <label for="name">Main Image</label><br/>
+                      <input type="file" class="p-inputtext" accept="image/*" (change)="onImageUpdload($event)">
+                      <div class="p-col-3 p-mt-2 p-pl-0">
+                        <img [src]="imageDisplay" style="width:100%">
+                      </div>
+                   </div>
              </div>
         </form>
       </div>

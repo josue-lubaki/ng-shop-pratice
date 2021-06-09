@@ -16,6 +16,7 @@ export class ProductsFormComponent implements OnInit {
     isSubmitted = false;
     editMode = false;
     currentCategoryId!: string;
+    imageDisplay!: string | ArrayBuffer | null;
     categories: Category[] = [];
 
     constructor(
@@ -200,5 +201,16 @@ export class ProductsFormComponent implements OnInit {
         //         });
         //     }
         // );
+    }
+
+    onImageUpdload(event: any) {
+        const file = event.target.files[0];
+        if (file) {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                this.imageDisplay = fileReader.result;
+            };
+        }
     }
 }
