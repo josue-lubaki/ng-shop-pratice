@@ -32,6 +32,7 @@ import { EditorModule } from 'primeng/editor';
 import { UsersListComponent } from './pages/users/users-list/users-list.component';
 import { UsersFormComponent } from './pages/users/users-form/users-form.component';
 import { TagModule } from 'primeng/tag';
+import { InputMaskModule } from 'primeng/inputmask';
 
 const UX_MODULE = [
     CardModule,
@@ -47,7 +48,8 @@ const UX_MODULE = [
     InputSwitchModule,
     DropdownModule,
     EditorModule,
-    TagModule
+    TagModule,
+    InputMaskModule
 ];
 
 const routes: Routes = [
