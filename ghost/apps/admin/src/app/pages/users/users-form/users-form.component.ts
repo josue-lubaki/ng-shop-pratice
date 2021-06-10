@@ -17,7 +17,7 @@ export class UsersFormComponent implements OnInit {
     editMode = false;
     currentUserId!: string;
     color!: string;
-    countries = [];
+    countries: any = [];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -29,7 +29,16 @@ export class UsersFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.initUserForm();
+        this._getCountries();
         this._checkEditMode();
+    }
+
+    /**
+     * Methode qui permet de récupérer la liste de tous les pays
+     * @see https://www.npmjs.com/package/i18n-iso-countries
+     */
+    private _getCountries() {
+        this.countries = this.usersService.getCountries();
     }
 
     /**
@@ -95,23 +104,30 @@ export class UsersFormComponent implements OnInit {
             return;
         }
 
-        const category: User = {
+        const user: User = {
             id: this.currentUserId,
             name: this.userForm.name.value,
             email: this.userForm.email.value,
-            phone: this.userForm.phone.value
+            password: this.userForm.password.value,
+            phone: this.userForm.phone.value,
+            isAdmin: this.userForm.isAdmin.value,
+            street: this.userForm.street.value,
+            apartment: this.userForm.apartment.value,
+            zip: this.userForm.zip.value,
+            city: this.userForm.city.value,
+            country: this.userForm.country.value
         };
 
         if (this.editMode) {
-            this._updateCategory(category);
+            this._updateCategory(user);
         } else {
-            this._addCategory(category);
+            this._addCategory(user);
         }
     }
 
     /**
-     * Methode qui permet de faire la mise à jour d'une Categorie
-     * @param category l'objet categorie à mettre à jour
+     * Methode qui permet de faire la mise à jour d'un Utilisateur
+     * @param user l'objet User à mettre à jour
      */
     private _updateCategory(user: User) {
         this.usersService.updateUser(user).subscribe(
@@ -139,8 +155,8 @@ export class UsersFormComponent implements OnInit {
     }
 
     /**
-     * Methode qui permet de créer une categorie
-     * @param category : l'objet categorie à insérer
+     * Methode qui permet de créer un Utilisateur
+     * @param user : l'objet User à insérer
      * @method subscribe (fnCallbackSuccess, fnCallbackError, fnCallbackComplete)
      */
     private _addCategory(user: User) {

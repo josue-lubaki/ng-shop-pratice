@@ -30,7 +30,7 @@
                         <p-tag *ngIf="user.isAdmin" styleClass="p-mr-2" icon="pi pi-check" [rounded]="true" severity="success"></p-tag>
                         <p-tag *ngIf="!user.isAdmin" styleClass="p-mr-2" icon="pi pi-times" [rounded]="true" severity="danger"></p-tag>
                       </td>
-                      <td>{{user.country}}</td>
+                      <td>{{ getCountryName(user.country)}}</td>
                       <td>
                         <p-button
                           (click)="deleteUser(user)"

@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
+import * as countriesLib from 'i18n-iso-countries';
+
+declare const require: (arg0: string) => countriesLib.LocaleData;
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +13,10 @@ import { environment } from '@env/environment';
 export class UsersService {
     apiURLUsers = environment.apiURL + 'users';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        countriesLib.registerLocale(require('i18n-iso-countries/langs/en.json'));
+    }
 
     /**
      * Methode qui permet la récupération de toutes les Utilisateurs depuis le Backend
@@ -53,5 +59,29 @@ export class UsersService {
      */
     deleteUser(usersId: string): Observable<any> {
         return this.http.delete<any>(`${this.apiURLUsers}/${usersId}`);
+    }
+
+    /**
+     * Methode qui donne tous les noms de pays
+     * @returns string[]
+     */
+    getCountries(): { id: string; name: string }[] {
+        return Object.entries(countriesLib.getNames('en', { select: 'official' })).map(
+            (entry) => {
+                return {
+                    id: entry[0],
+                    name: entry[1]
+                };
+            }
+        );
+    }
+
+    /**
+     * Methode qui donne le nom complet d'un pays grâce à la clé passée en paramètre
+     * @param countryKey la clé du pays dont on veut connaitre le nom
+     * @returns string
+     */
+    getCountry(countryKey: string): string {
+        return countriesLib.getName(countryKey, 'en');
     }
 }

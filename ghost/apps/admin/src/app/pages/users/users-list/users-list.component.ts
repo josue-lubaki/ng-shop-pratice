@@ -59,6 +59,17 @@ export class UsersListComponent implements OnInit {
     }
 
     /**
+     * Methode qui permet de récupérer le full name d'un pays grâce à sa clé
+     * @param countryKey la clé qui repésente un pays
+     * @returns string
+     */
+    getCountryName(countryKey: string) {
+        if (countryKey) {
+            return this.usersService.getCountry(countryKey);
+        } else return countryKey;
+    }
+
+    /**
      * Getter qui permet de récupérer toutes les Utilisateurs
      * @return User[]
      */
