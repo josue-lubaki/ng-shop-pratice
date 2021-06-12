@@ -57,7 +57,31 @@
   </p-fieldset>
 
   <p-fieldset legend="Order Address" [toggleable]="true"  styleClass="p-mb-4">
-    Content
+    <div class="p-grid">
+       <div class="p-col-4">
+        <h5>Order Address</h5>
+        <p>
+          {{order.shippingAddress1}}<br/>
+          {{order.shippingAddress2}}<br/>
+          {{order.zip}}  {{order.city}}<br/>
+          {{order.country}}<br/>
+        </p>
+      </div>
+
+        <div class="p-col-4" *ngIf="order.user">
+        <h5>Customer Info</h5>
+        <p class="p-mb-1">{{order.user.name}}</p>
+         <p class="p-mt-1">{{order.user.email}}</p>
+
+      </div>
+
+      <div class="p-col-4" *ngIf="order.user">
+        <h5>Contact Info</h5>
+        <p>
+          {{order.user.phone}}
+        </p>
+      </div>
+    </div>
   </p-fieldset>
 
 </div>

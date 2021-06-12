@@ -51,7 +51,7 @@ export class UsersFormComponent implements OnInit {
             name: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
             password: ['', Validators.required],
-            phone: ['', [Validators.required, Validators.max(10)]],
+            phone: ['', [Validators.required]],
             isAdmin: [false],
             street: [''],
             apartment: [''],
@@ -79,6 +79,7 @@ export class UsersFormComponent implements OnInit {
                     this.userForm.isAdmin.setValue(user.isAdmin);
                     this.userForm.street.setValue(user.street);
                     this.userForm.apartment.setValue(user.apartment);
+                    this.userForm.phone.setValue(user.phone);
                     this.userForm.zip.setValue(user.zip);
                     this.userForm.city.setValue(user.city);
                     this.userForm.country.setValue(user.country);
@@ -137,6 +138,7 @@ export class UsersFormComponent implements OnInit {
                     summary: 'Success',
                     detail: `Category ${response.name} is update`
                 });
+                console.log(response);
                 // Delai avant la rédirection vers la page précedente
                 timer(1500)
                     .toPromise()

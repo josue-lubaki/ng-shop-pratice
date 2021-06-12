@@ -8,13 +8,18 @@ import { Order, OrdersService } from '@ghost/orders';
     styles: []
 })
 export class OrdersDetailComponent implements OnInit {
-    order?: Order;
+    order!: Order;
     constructor(private orderService: OrdersService, private route: ActivatedRoute) {}
 
     ngOnInit(): void {
         this._getOrder();
     }
 
+    /**
+     * Methode qui permet de récupérer une commande
+     * Récuperation de l'ID depuis l'URL
+     * @return Order
+     */
     private _getOrder() {
         this.route.params.subscribe((params) => {
             if (params.id) {

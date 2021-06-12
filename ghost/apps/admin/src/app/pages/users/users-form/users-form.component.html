@@ -32,8 +32,7 @@
                 </div>
                 <div class="p-field p-col-4">
                   <label for="password">Password</label>
-                  <p-inputNumber formControlName="password" mode="decimal" inputId="password" [useGrouping]="false">
-                  </p-inputNumber>
+                  <p-password formControlName="password" [toggleMask]="true"></p-password>
                   <small *ngIf="userForm.password.invalid && isSubmitted" class="p-error">Password is required</small>
                 </div>
                 <div class="p-field p-col-4">
@@ -41,7 +40,7 @@
                       <p-inputMask
                           formControlName="phone"
                           mask="(999) 999-9999"
-                          placeholder="(999) 999-9999">
+                          [placeholder]="userForm.phone && userForm.phone.value !== '' ? userForm.phone.value : ''">
                       </p-inputMask>
                       <small *ngIf="userForm.phone.invalid && isSubmitted" class="p-error">Phone is required</small>
                 </div>

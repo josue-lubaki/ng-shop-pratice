@@ -4,8 +4,8 @@ import { User } from '@ghost/users';
 export class Order {
     id?: string;
     orderItems?: any;
-    shippingAdsress1?: string;
-    shippingAdsress2?: string;
+    shippingAddress1?: string;
+    shippingAddress2?: string;
     city?: string;
     zip?: string;
     country?: string;
