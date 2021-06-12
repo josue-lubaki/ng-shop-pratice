@@ -21,37 +21,38 @@ export class OrdersService {
     }
 
     /**
-     * Methode qui permet la récupération une categorie depuis le Backend via son ID
-     * @param categoryId l'ID de la categorie à récupérer
+     * Methode qui permet la récupération une order depuis le Backend via son ID
+     * @param orderId l'ID de la order à récupérer
      * @returns Observable<Order>
      */
-    getOrder(categoryId: string): Observable<Order> {
-        return this.http.get<Order>(`${this.apiURLOrders}/${categoryId}`);
+    getOrder(orderId: string): Observable<Order> {
+        return this.http.get<Order>(`${this.apiURLOrders}/${orderId}`);
     }
 
     /**
-     * Methode qui permet de créer une Categorie
-     * @param category la categorie à créer
+     * Methode qui permet de créer une Commande
+     * @param order la order à créer
      * @returns void
      */
-    createOrder(category: Order): Observable<Order> {
-        return this.http.post<Order>(this.apiURLOrders, category);
+    createOrder(order: Order): Observable<Order> {
+        return this.http.post<Order>(this.apiURLOrders, order);
     }
 
     /**
-     * Methode qui permet de créer une Categorie
-     * @param category la categorie à créer
+     * Methode qui permet de créer une Commande
+     * @param orderStatus la mise à jour su status de la commande
+     * @param orderId ID de la commande à mettre à jour
      * @returns void
      */
-    updateOrder(category: Order): Observable<Order> {
-        return this.http.put<Order>(`${this.apiURLOrders}/${category.id}`, category);
+    updateOrder(orderStatus: { status: string }, orderId: string): Observable<Order> {
+        return this.http.put<Order>(`${this.apiURLOrders}/${orderId}`, orderStatus);
     }
 
     /**
-     * Methode qui permet de supprimer une categorie
-     * @param categoryId id de la categorie à supprimer
+     * Methode qui permet de supprimer une order
+     * @param orderId id de l'order à supprimer
      */
-    deleteOrder(categoryId: string): Observable<any> {
-        return this.http.delete<any>(`${this.apiURLOrders}/${categoryId}`);
+    deleteOrder(orderId: string): Observable<any> {
+        return this.http.delete<any>(`${this.apiURLOrders}/${orderId}`);
     }
 }

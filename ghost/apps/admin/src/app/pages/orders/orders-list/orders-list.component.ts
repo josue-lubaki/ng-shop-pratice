@@ -1,31 +1,8 @@
-/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order, OrdersService } from '@ghost/orders';
 import { ConfirmationService, MessageService } from 'primeng/api';
-
-const ORDER_STATUS = {
-    0: {
-        label: 'Pending',
-        color: 'primary'
-    },
-    1: {
-        label: 'Processed',
-        color: 'warning'
-    },
-    2: {
-        label: 'Shipped',
-        color: 'warning'
-    },
-    3: {
-        label: 'Delivered',
-        color: 'success'
-    },
-    4: {
-        label: 'Failed',
-        color: 'danger'
-    }
-};
+import { ORDER_STATUS } from '../order.constants';
 
 @Component({
     selector: 'admin-orders-list',
@@ -34,7 +11,7 @@ const ORDER_STATUS = {
 })
 export class OrdersListComponent implements OnInit {
     orders: Order[] = [];
-    orderStatus: any = ORDER_STATUS;
+    orderStatus = ORDER_STATUS;
 
     constructor(
         private ordersService: OrdersService,
@@ -63,14 +40,14 @@ export class OrdersListComponent implements OnInit {
                         this.messageService.add({
                             severity: 'success',
                             summary: 'Success',
-                            detail: 'Orders is deleted'
+                            detail: 'Order is deleted'
                         });
                     },
                     () => {
                         this.messageService.add({
                             severity: 'error',
                             summary: 'Error',
-                            detail: 'Orders is not deleted !'
+                            detail: 'Order is not deleted !'
                         });
                     }
                 );

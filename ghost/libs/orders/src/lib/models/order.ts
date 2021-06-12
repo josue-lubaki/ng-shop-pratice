@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { OrderItem } from './order-item';
 import { User } from '@ghost/users';
 
 export class Order {
-    id?: string;
+    id!: string;
     orderItems?: any;
     shippingAddress1?: string;
     shippingAddress2?: string;
