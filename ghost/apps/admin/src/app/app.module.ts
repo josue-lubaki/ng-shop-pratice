@@ -14,6 +14,7 @@ import { CategoriesFormComponent } from './pages/categories/categories-form/cate
 import { CategoriesService } from '@ghost/products';
 import { ProductsListComponent } from './pages/products/products-list/products-list.component';
 import { ProductsFormComponent } from './pages/products/products-form/products-form.component';
+import { UsersModule } from '@ghost/users';
 
 import { CardModule } from 'primeng/card';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -137,7 +138,8 @@ const routes: Routes = [
         RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
         FormsModule,
         ReactiveFormsModule,
-        UX_MODULE
+        UX_MODULE,
+        UsersModule
     ],
     providers: [CategoriesService, MessageService, ConfirmationService], // ces services seront utilisés par dependance Injection
     bootstrap: [AppComponent]
