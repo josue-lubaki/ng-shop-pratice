@@ -4,6 +4,29 @@ import { Router } from '@angular/router';
 import { Order, OrdersService } from '@ghost/orders';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
+const ORDER_STATUS = {
+    0: {
+        label: 'Pending',
+        color: 'primary'
+    },
+    1: {
+        label: 'Processed',
+        color: 'warning'
+    },
+    2: {
+        label: 'Shipped',
+        color: 'warning'
+    },
+    3: {
+        label: 'Delivered',
+        color: 'success'
+    },
+    4: {
+        label: 'Failed',
+        color: 'danger'
+    }
+};
+
 @Component({
     selector: 'admin-orders-list',
     templateUrl: './orders-list.component.html',
@@ -11,6 +34,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class OrdersListComponent implements OnInit {
     orders: Order[] = [];
+    orderStatus: any = ORDER_STATUS;
 
     constructor(
         private ordersService: OrdersService,
