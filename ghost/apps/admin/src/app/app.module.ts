@@ -35,6 +35,7 @@ import { TagModule } from 'primeng/tag';
 import { InputMaskModule } from 'primeng/inputmask';
 import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
+import { FieldsetModule } from 'primeng/fieldset';
 
 const UX_MODULE = [
     CardModule,
@@ -51,7 +52,8 @@ const UX_MODULE = [
     DropdownModule,
     EditorModule,
     TagModule,
-    InputMaskModule
+    InputMaskModule,
+    FieldsetModule
 ];
 
 const routes: Routes = [

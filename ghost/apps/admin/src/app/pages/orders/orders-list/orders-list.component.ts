@@ -80,7 +80,7 @@ export class OrdersListComponent implements OnInit {
     }
 
     showOrder(orderId: string) {
-        return null;
+        this.router.navigateByUrl(`orders/${orderId}`);
     }
 
     /**

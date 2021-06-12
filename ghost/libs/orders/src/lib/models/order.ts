@@ -3,7 +3,7 @@ import { User } from '@ghost/users';
 
 export class Order {
     id?: string;
-    orderItem?: OrderItem;
+    orderItems?: any;
     shippingAdsress1?: string;
     shippingAdsress2?: string;
     city?: string;
