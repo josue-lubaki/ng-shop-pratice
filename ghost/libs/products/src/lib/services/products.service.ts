@@ -4,6 +4,7 @@ import { Category } from '../models/category';
 import { Product } from '../models/product';
 import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -19,6 +20,16 @@ export class ProductsService {
      */
     getProducts(): Observable<Product[]> {
         return this.http.get<Product[]>(this.apiURLProducts);
+    }
+
+    /**
+     * Methode qui permet de récupérer le nombre total des Products dans la base de données
+     * @returns {-  productCount : value }
+     */
+    getProductsCount(): Observable<number> {
+        return this.http
+            .get<number>(`${this.apiURLProducts}/get/count`)
+            .pipe(map((objectValue: any) => objectValue.productCount));
     }
 
     /**

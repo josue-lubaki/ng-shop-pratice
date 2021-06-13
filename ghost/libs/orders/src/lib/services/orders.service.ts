@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Order } from '../models/order';
 import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -18,6 +19,26 @@ export class OrdersService {
      */
     getOrders(): Observable<Order[]> {
         return this.http.get<Order[]>(this.apiURLOrders);
+    }
+
+    /**
+     * methode qui permet de récuper la somme totale des commandes vendues
+     * @returns number
+     */
+    getOrdersTotalSales(): Observable<number> {
+        return this.http
+            .get<number>(`${this.apiURLOrders}/get/totalsales`)
+            .pipe(map((objectValue: any) => objectValue.totalSales));
+    }
+
+    /**
+     * methode qui permet de récuper la somme totale des commandes vendues
+     * @returns number
+     */
+    getOrdersCount(): Observable<number> {
+        return this.http
+            .get<number>(`${this.apiURLOrders}/get/count`)
+            .pipe(map((objectValue: any) => objectValue.orderCount));
     }
 
     /**

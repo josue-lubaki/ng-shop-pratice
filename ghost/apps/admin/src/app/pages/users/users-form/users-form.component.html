@@ -40,7 +40,7 @@
                       <p-inputMask
                           formControlName="phone"
                           mask="(999) 999-9999"
-                          [placeholder]="userForm.phone && userForm.phone.value !== '' ? userForm.phone.value : ''">
+                          [placeholder]="userForm.phone && userForm.phone.value !== '' ? userForm.phone.value : '(999) 999-9999'">
                       </p-inputMask>
                       <small *ngIf="userForm.phone.invalid && isSubmitted" class="p-error">Phone is required</small>
                 </div>

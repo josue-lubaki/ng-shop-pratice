@@ -120,9 +120,9 @@ export class UsersFormComponent implements OnInit {
         };
 
         if (this.editMode) {
-            this._updateCategory(user);
+            this._updateUser(user);
         } else {
-            this._addCategory(user);
+            this._addUser(user);
         }
     }
 
@@ -130,7 +130,7 @@ export class UsersFormComponent implements OnInit {
      * Methode qui permet de faire la mise à jour d'un Utilisateur
      * @param user l'objet User à mettre à jour
      */
-    private _updateCategory(user: User) {
+    private _updateUser(user: User) {
         this.usersService.updateUser(user).subscribe(
             (response: User) => {
                 this.messageService.add({
@@ -161,7 +161,7 @@ export class UsersFormComponent implements OnInit {
      * @param user : l'objet User à insérer
      * @method subscribe (fnCallbackSuccess, fnCallbackError, fnCallbackComplete)
      */
-    private _addCategory(user: User) {
+    private _addUser(user: User) {
         this.usersService.createUser(user).subscribe(
             (response: User) => {
                 this.messageService.add({
@@ -176,7 +176,8 @@ export class UsersFormComponent implements OnInit {
                         this.onCancel();
                     });
             },
-            () => {
+            (error) => {
+                console.log(error);
                 this.messageService.add({
                     severity: 'error',
                     summary: 'Error',
