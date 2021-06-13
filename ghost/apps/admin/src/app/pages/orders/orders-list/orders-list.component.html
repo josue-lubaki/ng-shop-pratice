@@ -16,7 +16,7 @@
               <ng-template pTemplate="body" let-order>
                   <tr>
                       <td>{{order.user.name}}</td>
-                      <td>{{order.totalPrice}}</td>
+                      <td>{{order.totalPrice | currency}}</td>
                       <td>{{order.dateOrdered | date : "short"}}</td>
                       <td>
                         <p-tag
