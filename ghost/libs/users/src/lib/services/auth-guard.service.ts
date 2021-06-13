@@ -15,10 +15,14 @@ import { LocalstorageService } from './localstorage.service';
 export class AuthGuard implements CanActivate {
     constructor(private router: Router, private localstorageToken: LocalstorageService) {}
 
-    canActivate(
-        route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot
-    ): Observable<boolean> | Promise<boolean> | boolean {
+    /**
+     * methode qui permet de vérifier la Véracité du token
+     *  - Si l'utilisateur est un Administrateur
+     *  - Si la date d'expiration du token n'est pas encore atteinte
+     * @method JSON.Parse() transformer en object JSON
+     * @returns boolean
+     */
+    canActivate(): boolean {
         // Vérifier si un token valide est disponible
         const token = this.localstorageToken.getToken();
 
