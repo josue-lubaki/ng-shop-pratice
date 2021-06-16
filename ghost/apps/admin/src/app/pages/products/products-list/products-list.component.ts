@@ -1,17 +1,20 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoriesService, Product, ProductsService } from '@ghost/products';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { Subject } from 'rxjs/internal/Subject';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'admin-products-list',
     templateUrl: './products-list.component.html',
     styles: []
 })
-export class ProductsListComponent implements OnInit {
+export class ProductsListComponent implements OnInit, OnDestroy {
     products: Product[] = [];
+    endSubs$: Subject<any> = new Subject();
     constructor(
         private productService: ProductsService,
         private categoriesService: CategoriesService,
@@ -24,14 +27,22 @@ export class ProductsListComponent implements OnInit {
         this._getProducts();
     }
 
+    ngOnDestroy(): void {
+        this.endSubs$.next();
+        this.endSubs$.complete();
+    }
+
     /**
      * Getter qui permet de récupérer toutes les produits
      * @return Product[]
      */
     private _getProducts() {
-        this.productService.getProducts().subscribe((product) => {
-            this.products = product;
-        });
+        this.productService
+            .getProducts()
+            .pipe(takeUntil(this.endSubs$))
+            .subscribe((product) => {
+                this.products = product;
+            });
     }
 
     deleteProduct(productId: string) {

@@ -1,16 +1,19 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User, UsersService } from '@ghost/users';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'admin-users-list',
     templateUrl: './users-list.component.html',
     styles: []
 })
-export class UsersListComponent implements OnInit {
+export class UsersListComponent implements OnInit, OnDestroy {
     users: User[] = [];
+    endSubs$: Subject<any> = new Subject();
 
     constructor(
         private usersService: UsersService,
@@ -21,6 +24,11 @@ export class UsersListComponent implements OnInit {
 
     ngOnInit(): void {
         this._getUsers();
+    }
+
+    ngOnDestroy(): void {
+        this.endSubs$.next();
+        this.endSubs$.complete();
     }
 
     /**
@@ -74,9 +82,12 @@ export class UsersListComponent implements OnInit {
      * @return User[]
      */
     private _getUsers() {
-        this.usersService.getUsers().subscribe((users) => {
-            this.users = users;
-        });
+        this.usersService
+            .getUsers()
+            .pipe(takeUntil(this.endSubs$))
+            .subscribe((users) => {
+                this.users = users;
+            });
     }
 
     /**

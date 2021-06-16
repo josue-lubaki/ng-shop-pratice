@@ -15,7 +15,10 @@
               </ng-template>
               <ng-template pTemplate="body" let-order>
                   <tr>
-                      <td>{{order.user.name}}</td>
+                      <td>
+                        <span *ngIf="order.user && order.user.name !== ''">{{order.user.name}}</span>
+                        <span *ngIf="!order.user || order.user.name === ''">Unknown</span>
+                      </td>
                       <td>{{order.totalPrice | currency}}</td>
                       <td>{{order.dateOrdered | date : "short"}}</td>
                       <td>

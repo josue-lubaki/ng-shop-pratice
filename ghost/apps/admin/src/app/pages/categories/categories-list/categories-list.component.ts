@@ -1,17 +1,18 @@
-/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-/* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoriesService, Category } from '@ghost/products';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'admin-categories-list',
     templateUrl: './categories-list.component.html',
     styles: []
 })
-export class CategoriesListComponent implements OnInit {
+export class CategoriesListComponent implements OnInit, OnDestroy {
     categories: Category[] = [];
+    endSubs$: Subject<any> = new Subject();
 
     constructor(
         private categoriesService: CategoriesService,
@@ -19,6 +20,11 @@ export class CategoriesListComponent implements OnInit {
         private confirmationService: ConfirmationService,
         private router: Router
     ) {}
+
+    ngOnDestroy(): void {
+        this.endSubs$.next();
+        this.endSubs$.complete();
+    }
 
     ngOnInit(): void {
         this._getCategories();
@@ -61,9 +67,12 @@ export class CategoriesListComponent implements OnInit {
      * @return Category[]
      */
     private _getCategories() {
-        this.categoriesService.getCategories().subscribe((category) => {
-            this.categories = category;
-        });
+        this.categoriesService
+            .getCategories()
+            .pipe(takeUntil(this.endSubs$))
+            .subscribe((category) => {
+                this.categories = category;
+            });
     }
 
     /**

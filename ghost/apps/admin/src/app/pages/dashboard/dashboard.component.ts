@@ -1,17 +1,19 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OrdersService } from '@ghost/orders';
 import { ProductsService } from '@ghost/products';
 import { UsersService } from '@ghost/users';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'admin-dashboard',
     templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
     statistics: any = [];
+    endSubs$: Subject<any> = new Subject();
 
     constructor(
         private usersService: UsersService,
@@ -25,8 +27,15 @@ export class DashboardComponent implements OnInit {
             this.productService.getProductsCount(),
             this.usersService.getUsersCount(),
             this.orderService.getOrdersTotalSales()
-        ]).subscribe((values) => {
-            this.statistics = values;
-        });
+        ])
+            .pipe(takeUntil(this.endSubs$))
+            .subscribe((values) => {
+                this.statistics = values;
+            });
+    }
+
+    ngOnDestroy(): void {
+        this.endSubs$.next();
+        this.endSubs$.complete();
     }
 }
