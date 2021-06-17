@@ -10,6 +10,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { UiModule } from '@ghost/ui';
 import { AccordionModule } from 'primeng/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavComponent } from './shared/nav/nav.component';
 
 const routes: Routes = [
     { path: '', component: HomePageComponent },
@@ -17,7 +18,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [AppComponent, HomePageComponent, ProductListComponent, HeaderComponent, FooterComponent],
+    declarations: [AppComponent, HomePageComponent, ProductListComponent, HeaderComponent, FooterComponent, NavComponent],
     imports: [BrowserModule, RouterModule.forRoot(routes), UiModule, AccordionModule, BrowserAnimationsModule],
     providers: [],
     bootstrap: [AppComponent]
