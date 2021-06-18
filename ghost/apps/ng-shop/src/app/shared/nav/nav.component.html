@@ -1,5 +1,10 @@
-<ul class="nav">
+<ul id="nav">
+  <li class="exit-btn hide-desktop" id="exit" (click)="toogleMenu($event)">
+    <a> <i class="pi pi-times"></i></a>
+	</li>
   <li><a routerLink='/'>Home</a></li>
   <li><a routerLink='/products'>Products</a></li>
   <li><a routerLink='/contact'>Contact</a></li>
+  <li><a routerLink='/' class="show-menu hide-menu">Compte</a></li>
+  <li><a routerLink='/' class="show-menu hide-menu">Panier</a></li>
 </ul>

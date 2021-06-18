@@ -7,7 +7,16 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: []
 })
 export class HeaderComponent implements OnInit {
+    blocMenu: any;
+
     constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.blocMenu = document.getElementById('blocMenu');
+    }
+
+    toogleMenu(event: any) {
+        this.blocMenu.classList.toggle('show-mobile');
+        event.preventDefault();
+    }
 }

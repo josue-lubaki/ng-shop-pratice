@@ -6,13 +6,110 @@ header{
     }
   }
 
+  .navigation{
+    margin-top: 5%;
+  }
+
   .tools, .search{
-    padding-top: 5%;
+    margin-top: 5%;
+
+    ngshop-nav #nav{
+      position: fixed;
+      width: 40%;
+      top: 0;
+      right: 0;
+      text-align: left;
+      background-color: rgb(36,41,44);
+      height: 100%;
+      z-index: 5;
+      padding-top: 2.5em;
+
+      ul{
+        margin: 0;
+      }
+
+        .exit-btn{
+          margin-top: -1.3em;
+          margin-bottom: 1.1em;
+          text-align: right;
+          padding: 0 1.2em;
+
+          a{
+            padding-left:85%;
+          }
+        }
+
+        li{
+          display: block;
+          color: white;
+
+          &:hover{
+          background-color: rgba(55, 124, 41, 0.4);
+          }
+
+          a{
+            text-decoration: none;
+            color: white;
+            font-size: 1.1em;
+            padding: 1em 1.2em;
+          }
+        }
+
+
+      }
 
     .pi{
       margin-right: 15%;
+      font-size: 1.2rem;
+    }
+
+  }
+
+  // .menu{
+  //   width: 25px;
+  //   margin-top: 5%;
+  // }
+
+
+  @media only screen and (max-width: 940px) {
+
+    .hide-desktop{
+      display: none;
+    }
+
+    .show-mobile{
+      display: inline-block;
+    }
+
+    .p-grid{
+      justify-content: space-between;
+    }
+
+  }
+
+  @media only screen and (max-width: 650px) {
+    .p-col-2{
+      width:20% !important;
+    }
+
+    .pi{
+      font-size: 1rem !important;
     }
   }
+
+  @media only screen and (max-width: 480px) {
+    .pi-user, .pi-shopping-cart{
+      display: none;
+    }
+
+    .pi{
+      font-size: 1.5em !important;
+    }
+
+  }
+
+
+
 
 
 
