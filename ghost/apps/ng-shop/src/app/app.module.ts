@@ -7,11 +7,13 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { UiModule } from '@ghost/ui';
 import { ProductsModule } from '@ghost/products';
+import { UiModule } from '@ghost/ui';
 import { AccordionModule } from 'primeng/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './shared/nav/nav.component';
+import { FormBuilder } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [
     { path: '', component: HomePageComponent },
@@ -30,12 +32,12 @@ const routes: Routes = [
     imports: [
         BrowserModule,
         RouterModule.forRoot(routes),
-        UiModule,
         AccordionModule,
         BrowserAnimationsModule,
-        ProductsModule
+        ProductsModule,
+        UiModule
     ],
-    providers: [],
+    providers: [FormBuilder, NgbModal],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

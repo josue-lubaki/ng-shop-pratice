@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'ghost-products-search',
@@ -8,7 +10,20 @@ import { Component, OnInit } from '@angular/core';
     styles: []
 })
 export class ProductsSearchComponent implements OnInit {
-    constructor() {}
+    searchForm!: FormGroup;
+    constructor(private modalService: NgbModal, private formBuilder: FormBuilder) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this._initSearchForm();
+    }
+
+    private _initSearchForm() {
+        this.searchForm = this.formBuilder.group({
+            search: ['', Validators.required]
+        });
+    }
+
+    openModal(modal: any) {
+        this.modalService.open(modal, { centered: true });
+    }
 }

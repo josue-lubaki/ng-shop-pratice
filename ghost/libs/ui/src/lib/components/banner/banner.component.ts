@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'banner',
+    selector: 'ghost-ui-banner',
     templateUrl: './banner.component.html',
-    styleUrls: []
+    styles: []
 })
 export class BannerComponent implements OnInit {
     constructor() {}
