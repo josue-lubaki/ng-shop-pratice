@@ -1,22 +1,20 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit } from '@angular/core';
 
+/* Fonction qui permet à l'icône "Hamburger" d'afficher la barre de menu */
+declare function toggleMenu(event: any): void;
+
 @Component({
     selector: 'ngshop-header',
     templateUrl: './header.component.html',
     styleUrls: []
 })
 export class HeaderComponent implements OnInit {
-    blocMenu: any;
-
     constructor() {}
 
-    ngOnInit(): void {
-        this.blocMenu = document.getElementById('blocMenu');
-    }
+    ngOnInit(): void {}
 
-    toogleMenu(event: any) {
-        this.blocMenu.classList.toggle('show-mobile');
-        event.preventDefault();
+    openMenuBar(event: any) {
+        toggleMenu(event);
     }
 }

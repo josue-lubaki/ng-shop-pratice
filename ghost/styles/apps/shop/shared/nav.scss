@@ -20,14 +20,21 @@
   li{
     list-style: none;
     display: inline-block;
-    margin-right: 15px;
+    margin: 0 10px;
+    padding: 10px;
 
     a{
       display: block;
     }
 
     &:hover{
-      background-color: rgba(55, 124, 41, 0.4);
+      background-color: $primary-color;
+      font-weight: bold;
+      border-radius: 10px;
+
+       a{
+         color: #fff;
+       }
     }
   }
 

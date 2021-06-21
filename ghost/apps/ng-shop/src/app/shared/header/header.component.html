@@ -6,7 +6,7 @@
             </div>
           </div>
           <div class="p-col-3 search">
-              Search
+              <ghost-products-search></ghost-products-search>
           </div>
           <div class="p-col-4 navigation hide-desktop show-desktop">
               <ngshop-nav></ngshop-nav>
@@ -14,7 +14,7 @@
           <div class="p-col-3 tools">
             <i class="pi pi-user" id="user"></i>
             <i class="pi pi-shopping-cart"></i>
-            <i class="pi pi-bars hide-desktop show-mobile menu" id="menu" (click)="toogleMenu($event)"></i>
+            <i class="pi pi-bars hide-desktop show-mobile menu" id="menu" (click)="openMenuBar($event)"></i>
 
             <div class="hide-desktop" id="blocMenu">
               <ngshop-nav></ngshop-nav>

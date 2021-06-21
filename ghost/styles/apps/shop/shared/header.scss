@@ -7,11 +7,15 @@ header{
   }
 
   .navigation{
-    margin-top: 5%;
+    padding-top: 3%;
   }
 
-  .tools, .search{
-    margin-top: 5%;
+  .search{
+    padding-top: 2.5%;
+  }
+
+  .tools{
+   padding-top: 3%;
 
     ngshop-nav #nav{
       position: fixed;
@@ -44,7 +48,8 @@ header{
           color: white;
 
           &:hover{
-          background-color: rgba(55, 124, 41, 0.4);
+            background-color: rgba(55, 124, 41, 0.4);
+
           }
 
           a{

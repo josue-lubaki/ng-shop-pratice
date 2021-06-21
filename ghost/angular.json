@@ -54,7 +54,9 @@
                         "styles": [
                           "apps/ng-shop/src/styles.scss"
                         ],
-                        "scripts": []
+                        "scripts": [
+                          "./scripts/header.js"
+                        ]
                     },
                     "configurations": {
                         "production": {

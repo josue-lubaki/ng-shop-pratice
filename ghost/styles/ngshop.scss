@@ -28,12 +28,13 @@
 // Libs
 @import './libs/ui/ui.scss';
 @import './libs/users/users.scss';
+@import './libs/products/products.scss';
 
 
 .container{
   max-width: 1200px;
   padding: 15px;
   margin: 0 auto;
-  background-color: var(--surface-c);
+  background-color: var(--surface-d);
 }
 

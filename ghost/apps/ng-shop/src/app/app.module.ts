@@ -8,6 +8,7 @@ import { ProductListComponent } from './pages/product-list/product-list.componen
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { UiModule } from '@ghost/ui';
+import { ProductsModule } from '@ghost/products';
 import { AccordionModule } from 'primeng/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './shared/nav/nav.component';
@@ -18,8 +19,22 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [AppComponent, HomePageComponent, ProductListComponent, HeaderComponent, FooterComponent, NavComponent],
-    imports: [BrowserModule, RouterModule.forRoot(routes), UiModule, AccordionModule, BrowserAnimationsModule],
+    declarations: [
+        AppComponent,
+        HomePageComponent,
+        ProductListComponent,
+        HeaderComponent,
+        FooterComponent,
+        NavComponent
+    ],
+    imports: [
+        BrowserModule,
+        RouterModule.forRoot(routes),
+        UiModule,
+        AccordionModule,
+        BrowserAnimationsModule,
+        ProductsModule
+    ],
     providers: [],
     bootstrap: [AppComponent]
 })
