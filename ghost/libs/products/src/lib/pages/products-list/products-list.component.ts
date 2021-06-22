@@ -1,0 +1,61 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Category } from '../../models/category';
+import { Product } from '../../models/product';
+import { CategoriesService } from '../../services/categories.service';
+import { ProductsService } from '../../services/products.service';
+
+@Component({
+    selector: 'products-list',
+    templateUrl: './products-list.component.html',
+    styles: []
+})
+export class ProductsListComponent implements OnInit, OnDestroy {
+    products: Product[] = [];
+    categories: Category[] = [];
+    subs$: Subject<any> = new Subject();
+
+    constructor(
+        private productsService: ProductsService,
+        private categoriesService: CategoriesService
+    ) {}
+
+    ngOnInit(): void {
+        this._getProducts();
+        this._getCategories();
+    }
+
+    ngOnDestroy(): void {
+        this.subs$.next();
+        this.subs$.complete();
+    }
+
+    /**
+     * Methode qui permet de récupérer tous les produits de la BD
+     * @returns Product[]
+     */
+    private _getProducts() {
+        this.productsService
+            .getProducts()
+            .pipe(takeUntil(this.subs$))
+            .subscribe((products) => {
+                this.products = products;
+            });
+    }
+
+    /**
+     * Methode qui permet de récupérer toutes les categories comprises dans la BD
+     * @returns Category[]
+     */
+    private _getCategories() {
+        this.categoriesService
+            .getCategories()
+            .pipe(takeUntil(this.subs$))
+            .subscribe((categories) => {
+                this.categories = categories;
+            });
+    }
+}

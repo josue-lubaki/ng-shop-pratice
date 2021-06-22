@@ -10,7 +10,7 @@ import { Product } from '@ghost/products';
 })
 export class ProductItemComponent implements OnInit {
     @Input()
-    product!: Product;
+    product?: Product;
 
     constructor() {}
 
