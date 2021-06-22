@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, Input, OnInit } from '@angular/core';
-import { Product } from '../../models/product';
+import { Product } from '@ghost/products';
 
 @Component({
     selector: 'products-product-item',

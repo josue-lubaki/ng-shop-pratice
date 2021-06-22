@@ -69,4 +69,13 @@ export class ProductsService {
     deleteProduct(productId: string): Observable<any> {
         return this.http.delete<any>(`${this.apiURLProducts}/${productId}`);
     }
+
+    /**
+     * Methode qui permet de récupérer tous les products dont la proprité "featured == true"
+     * @param count nombre de products à récupérer
+     * @returns Product[]
+     */
+    getFeaturedProducts(count: number): Observable<Product[]> {
+        return this.http.get<Product[]>(`${this.apiURLProducts}/get/featured/${count}`);
+    }
 }
