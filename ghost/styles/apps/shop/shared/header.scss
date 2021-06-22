@@ -1,8 +1,13 @@
 header{
+  .header-pGrid{
+    max-height: 100px;
+  }
+
   .logo{
 
     img{
-      width: 70%;
+      width: 50%;
+      height: 85px;
     }
   }
 
@@ -90,6 +95,11 @@ header{
       justify-content: space-between;
     }
 
+    .header-pGrid .search{
+      width: 35%;
+      transition: all .7s ease-in-out;
+    }
+
   }
 
   @media only screen and (max-width: 650px) {
@@ -99,7 +109,19 @@ header{
 
     .pi{
       font-size: 1rem !important;
+      transition: all .7s ease-in-out;
     }
+
+    .header-pGrid .search{
+      width: 55%;
+      transition: all .7s ease-in-out;
+    }
+
+    .logo img{
+      width: 100%;
+      transition: all .7s ease-in-out;
+    }
+
   }
 
   @media only screen and (max-width: 480px) {
@@ -109,6 +131,20 @@ header{
 
     .pi{
       font-size: 1.5em !important;
+    }
+
+    // .header-pGrid .search{
+    //   width: 55%;
+    // }
+
+    // .logo img{
+    //   width: 100%;
+    // }
+
+    .tools #menu{
+      font-size: 2.5em !important;
+      padding: 0 15px;
+      margin-right: 0;
     }
 
   }

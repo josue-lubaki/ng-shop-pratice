@@ -29,3 +29,18 @@
     }
   }
 }
+
+@media only screen and (max-width: 480px)  {
+  .categories-pGrid{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    &-pCol2{
+      width: 90%;
+      align-self: center;
+    }
+  }
+
+
+}

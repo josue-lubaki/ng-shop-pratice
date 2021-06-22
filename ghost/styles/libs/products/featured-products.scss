@@ -1,0 +1,20 @@
+.featured-products{
+  &-pGrid{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    div{
+      width: 100%;
+
+    }
+
+    .product-item-wrapper{
+      width:100%;
+
+      img{
+        width: auto;
+      }
+    }
+  }
+}

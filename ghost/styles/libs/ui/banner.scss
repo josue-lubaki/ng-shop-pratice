@@ -44,3 +44,20 @@
 
 
 }
+
+
+@media only screen and (max-width: 650px)  {
+  .banner{
+    height: auto;
+
+    &-pGrid{
+      flex-direction: column;
+
+      .banner-image{
+        padding: 15px 0 0 25px;
+      }
+    }
+  }
+
+
+}

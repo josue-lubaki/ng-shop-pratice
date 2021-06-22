@@ -1,29 +1,24 @@
 footer {
-    background-color: var(--yellow-100);
-    min-height: 50px;
-    padding: 10px 25px;
-    width: 100%;
-    margin-top: 25px;
+  background-color: var(--yellow-100);
+  min-height: 50px;
+  padding: 10px 25px;
+  width: 100%;
+  margin-top: 25px;
 
-    .footer-wrapper {
-        align-items: center;
+  .footer-wrapper {
+    align-items: center;
 
-        .social {
-            margin-top: 15px;
-            text-align: right;
-            .nav {
+    .social {
+      margin-top: 15px;
+      text-align: right;
+      .nav {
+        display: flex;
+        justify-content: flex-end;
 
-                justify-content: flex-end;
-
-                li{
-                  float: left;
-                }
-
-                .pi{
-                  font-size: 1.5rem;
-                  padding: 5px;
-                }
-            }
+        .pi{
+          margin-right: 7.5px;
         }
+      }
     }
+  }
 }

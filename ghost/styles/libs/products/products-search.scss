@@ -9,16 +9,17 @@
     width:25px;
     font-size: 1.3em;
     color: $primary-color;
-    margin-top: 10px;
+    margin-top: 8px;
     margin-left: 10px;
     margin-right: 5px !important;
   }
 
   &-input{
     height: 35px;
-    background-color:transparent !important;
-    color: var(--surface-600);
+    //background-color:transparent !important;
+    color: var(--surface-800);
     border : 0;
+    border-radius: 10px;
     width: 100%;
 
     &:focus, &-active{
