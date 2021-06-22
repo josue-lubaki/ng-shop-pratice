@@ -7,7 +7,7 @@ import { Category } from '../../models/category';
 import { CategoriesService } from '../../services/categories.service';
 
 @Component({
-    selector: 'ghost-products-categories-banner',
+    selector: 'products-categories-banner',
     templateUrl: './categories-banner.component.html',
     styles: []
 })

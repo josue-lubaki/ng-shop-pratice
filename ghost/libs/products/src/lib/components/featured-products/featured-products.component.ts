@@ -3,11 +3,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'ui-banner',
-    templateUrl: './banner.component.html',
+    selector: 'products-featured-product',
+    templateUrl: './featured-products.component.html',
     styles: []
 })
-export class BannerComponent implements OnInit {
+export class FeaturedProductsComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {}

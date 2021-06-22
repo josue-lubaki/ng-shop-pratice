@@ -4,10 +4,23 @@ import { ProductsSearchComponent } from './components/products-search/products-s
 import { CategoriesBannerComponent } from './components/categories-banner/categories-banner.component';
 import { OrdersModule } from '@ghost/orders';
 import { RouterModule } from '@angular/router';
+import { ProductItemComponent } from './components/product-item/product-item.component';
+import { FeaturedProductsComponent } from './components/featured-products/featured-products.component';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
-    imports: [CommonModule, OrdersModule, RouterModule],
-    declarations: [ProductsSearchComponent, CategoriesBannerComponent],
-    exports: [ProductsSearchComponent, CategoriesBannerComponent]
+    imports: [CommonModule, OrdersModule, RouterModule, ButtonModule],
+    declarations: [
+        ProductsSearchComponent,
+        CategoriesBannerComponent,
+        ProductItemComponent,
+        FeaturedProductsComponent
+    ],
+    exports: [
+        ProductsSearchComponent,
+        CategoriesBannerComponent,
+        ProductItemComponent,
+        FeaturedProductsComponent
+    ]
 })
 export class ProductsModule {}
