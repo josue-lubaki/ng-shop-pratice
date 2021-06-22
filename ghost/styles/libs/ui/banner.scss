@@ -27,4 +27,20 @@
     text-align: center;
     padding: 15px 0 0 0;
   }
+
+  &-button{
+    background-color: #fff;
+    color: $primary-color;
+    border: 1px solid $primary-color;
+    border-radius: 13px;
+    height:50px;
+
+    &:enabled:hover{
+      background-color: #fff;
+      color: $primary-color;
+      border: 1px solid $primary-color;
+    }
+  }
+
+
 }

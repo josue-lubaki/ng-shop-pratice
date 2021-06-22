@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './shared/nav/nav.component';
 import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
     { path: '', component: HomePageComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
         BrowserModule,
         RouterModule.forRoot(routes),
         AccordionModule,
+        HttpClientModule,
         BrowserAnimationsModule,
         ProductsModule,
         UiModule
