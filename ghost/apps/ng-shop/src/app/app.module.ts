@@ -14,6 +14,7 @@ import { NavComponent } from './shared/nav/nav.component';
 import { FormBuilder, NgModel } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { OrdersModule } from '@ghost/orders';
 
 const routes: Routes = [{ path: '', component: HomePageComponent }];
 
@@ -32,7 +33,8 @@ const routes: Routes = [{ path: '', component: HomePageComponent }];
         HttpClientModule,
         BrowserAnimationsModule,
         ProductsModule,
-        UiModule
+        UiModule,
+        OrdersModule
     ],
     providers: [FormBuilder, NgbModal, NgModel],
     bootstrap: [AppComponent]
