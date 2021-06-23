@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Category } from '../../models/category';
@@ -16,15 +17,25 @@ import { ProductsService } from '../../services/products.service';
 export class ProductsListComponent implements OnInit, OnDestroy {
     products: Product[] = [];
     categories: Category[] = [];
+    iscategoryPage!: boolean;
     subs$: Subject<any> = new Subject();
 
     constructor(
         private productsService: ProductsService,
-        private categoriesService: CategoriesService
+        private categoriesService: CategoriesService,
+        private route: ActivatedRoute
     ) {}
 
     ngOnInit(): void {
-        this._getProducts();
+        this.route.params.subscribe((params) => {
+            params.categoryId
+                ? this._getProducts([params.categoryId])
+                : this._getProducts();
+
+            params.categoryId
+                ? (this.iscategoryPage = true)
+                : (this.iscategoryPage = false);
+        });
         this._getCategories();
     }
 

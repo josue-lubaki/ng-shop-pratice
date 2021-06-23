@@ -21,6 +21,7 @@ header{
 
   .tools{
    padding-top: 3%;
+   display: flex;
 
     ngshop-nav #nav{
       position: fixed;
@@ -103,9 +104,6 @@ header{
   }
 
   @media only screen and (max-width: 650px) {
-    .p-col-2{
-      width:20% !important;
-    }
 
     .pi{
       font-size: 1rem !important;

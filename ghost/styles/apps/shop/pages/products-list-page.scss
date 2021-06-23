@@ -2,8 +2,20 @@ img{
   z-index: 0;
 }
 
+@media only screen and (max-width: 960px){
+   .product-item{
+      width: 90%;
+      transition: all .7s ease-in-out;
+
+        img{
+          width:auto;
+          max-width: 100%;
+        }
+   }
+}
 
 @media only screen and (max-width: 650px){
+
   .list-product-pGrid{
     flex-direction: column;
     align-items: center;
@@ -14,13 +26,13 @@ img{
 
       .product-item{
         width: 100%;
-
       }
     }
   }
 }
 
 @media only screen and (max-width: 420px){
+
   .list-product-pGrid{
     flex-direction: column;
     align-items: center;
@@ -29,11 +41,6 @@ img{
       width: 95%;
         .product-item{
             width: 90%;
-
-            img{
-              width:auto !important;
-              max-width: 100%;
-            }
         }
       }
   }
