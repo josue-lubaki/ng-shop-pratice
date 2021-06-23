@@ -2,11 +2,11 @@
   <div class="p-grid product-pGrid">
 
     <!-- ui-gallery -->
-    <div class="p-col-6">
-      <!-- <ui-gallery></ui-gallery> -->
+    <div class="p-col-6 product-images">
+      <ui-gallery [images]="product.images"></ui-gallery>
     </div>
 
-     <div class="p-col-6">
+     <div class="p-col-6 product-details">
       <h2 class="product-name">{{ product.name }}</h2>
       <p class="product-description">
         {{ product.description }}

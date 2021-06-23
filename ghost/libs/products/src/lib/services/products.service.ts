@@ -51,7 +51,7 @@ export class ProductsService {
      * @returns void
      */
     createProduct(productData: FormData): Observable<Product> {
-        return this.http.post<Category>(this.apiURLProducts, productData);
+        return this.http.post<Product>(this.apiURLProducts, productData);
     }
 
     /**
@@ -59,8 +59,8 @@ export class ProductsService {
      * @param productData la Produit à créer
      * @returns void
      */
-    updateProduct(productData: FormData): Observable<Category> {
-        return this.http.put<Category>(
+    updateProduct(productData: FormData): Observable<Product> {
+        return this.http.put<Product>(
             `${this.apiURLProducts}/${productData.get('id')}`,
             productData
         );
