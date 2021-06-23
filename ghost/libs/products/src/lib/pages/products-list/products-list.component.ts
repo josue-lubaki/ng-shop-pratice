@@ -37,9 +37,9 @@ export class ProductsListComponent implements OnInit, OnDestroy {
      * Methode qui permet de récupérer tous les produits de la BD
      * @returns Product[]
      */
-    private _getProducts() {
+    private _getProducts(categoriesFilter?: string[]) {
         this.productsService
-            .getProducts()
+            .getProducts(categoriesFilter)
             .pipe(takeUntil(this.subs$))
             .subscribe((products) => {
                 this.products = products;
@@ -57,5 +57,19 @@ export class ProductsListComponent implements OnInit, OnDestroy {
             .subscribe((categories) => {
                 this.categories = categories;
             });
+    }
+
+    /**
+     * Methode qui permet de filter les categories
+     */
+    categoryFilter() {
+        // Récupérer les ID des categories selectionnés
+        const selectedCategories = this.categories
+            .filter((category) => category.checked)
+            .map((category) => category.id);
+
+        this._getProducts(selectedCategories);
+
+        console.log(selectedCategories);
     }
 }
