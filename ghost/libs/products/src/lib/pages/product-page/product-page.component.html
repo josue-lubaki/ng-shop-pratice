@@ -20,12 +20,12 @@
       </div>
       <div class="product-quantity">
         <div class="p-field p-col-12 p-md-3 p-sm-1 p-p-0">
-          <label for="minmax-buttons">Quantity</label>
+          <label for="quantity">Quantity</label>
           <p-inputNumber
             [(ngModel)]="quantity"
             mode="decimal"
             [showButtons]="true"
-            inputId="minmax-buttons"
+            inputId="quantity"
             [min]="1"
             [max]="100">
           </p-inputNumber>
@@ -45,7 +45,7 @@
             pRipple
             type="button"
             label="Add to Cart"
-            (onclick)="addProductToCart()"
+            (click)="addProductToCart()"
           ></button>
       </div>
     </div>
