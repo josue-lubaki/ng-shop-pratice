@@ -16,7 +16,7 @@ import { Subject } from 'rxjs';
 export class CartPageComponent implements OnInit, OnDestroy {
     cartItemdetails: CartItemDetails[] = [];
     cartCount = 0;
-    endSubs$: Subject<any> = new Subject();
+    endSubs$: Subject<unknown> = new Subject();
 
     constructor(
         private router: Router,
@@ -33,6 +33,10 @@ export class CartPageComponent implements OnInit, OnDestroy {
         this.endSubs$.complete();
     }
 
+    /**
+     * Methode qui donne le nombre d'article mise au panier et récupère toutes les informations d'un produit à partir de son ID
+     * pour ensuite le push dans le tableau des articles prêt à l'achat
+     */
     private _getCartDetails() {
         this.cartService.cart$
             .pipe(takeUntil(this.endSubs$))
@@ -53,11 +57,33 @@ export class CartPageComponent implements OnInit, OnDestroy {
             });
     }
 
+    /**
+     * Methode qui permet de retourner en arrière ('/products') via le boutton "continue shopping"
+     */
     backToShop() {
         this.router.navigate(['/products']);
     }
 
+    /**
+     * Methode qui permet de supprimer un article de ls liste des articles prêt à l'achat
+     * @param cartItem la cartItem à supprimer
+     */
     deleteCartItem(cartItem: CartItemDetails) {
         this.cartService.deleteCartItem(cartItem.product.id);
+    }
+
+    /**
+     * Methode qui permet de mettre à jour la quantité d'un article sélectionné
+     * @param event fait reference au ngModel pour l'affichage ne temps réel de la quantité
+     * @param cartItem fait réference au CartItem à mettre à jour
+     */
+    updateCartItemQuantity(event: any, cartItem: CartItemDetails) {
+        this.cartService.setCartItem(
+            {
+                productId: cartItem.product.id,
+                quantity: event.value
+            },
+            true
+        );
     }
 }

@@ -36,7 +36,9 @@
                   [showButtons]="true"
                   [inputId]="cartItem.product.id"
                   [min]="1"
-                  [max]="100">
+                  [max]="100"
+                  [(ngModel)]="cartItem.quantity"
+                  (onInput)="updateCartItemQuantity($event, cartItem)">
                 </p-inputNumber>
               </div>
               <div class="cart-item-subtotal">

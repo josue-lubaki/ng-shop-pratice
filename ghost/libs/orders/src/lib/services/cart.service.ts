@@ -41,9 +41,10 @@ export class CartService {
     /**
      * Methode qui permet d'ajouter le cartItem dans le LocalStorage
      * @param cartItem Item à enregistrer
+     * @param updateCartItem true si on désire mettre à jour la quantité d'un article
      * @returns Cart
      */
-    setCartItem(cartItem: CartItem): Cart {
+    setCartItem(cartItem: CartItem, updateCartItem?: boolean): Cart {
         const cart = this.getCart();
         const cartItemExist = cart.items?.find(
             (item) => item.productId === cartItem.productId
@@ -56,7 +57,11 @@ export class CartService {
                     cartItem.quantity &&
                     item.productId === cartItem.productId
                 ) {
-                    item.quantity = item.quantity + cartItem.quantity;
+                    if (updateCartItem) {
+                        item.quantity = cartItem.quantity;
+                    } else {
+                        item.quantity = item.quantity + cartItem.quantity;
+                    }
                 }
                 return item;
             });
