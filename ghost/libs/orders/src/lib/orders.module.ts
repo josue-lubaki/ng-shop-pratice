@@ -7,6 +7,7 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
 
 const routes: Routes = [
     {
@@ -23,8 +24,8 @@ const routes: Routes = [
         ButtonModule,
         InputNumberModule
     ],
-    declarations: [CartIconComponent, CartPageComponent],
-    exports: [CartIconComponent, CartPageComponent]
+    declarations: [CartIconComponent, CartPageComponent, OrderSummaryComponent],
+    exports: [CartIconComponent, CartPageComponent, OrderSummaryComponent]
 })
 export class OrdersModule {
     constructor(cartService: CartService) {
