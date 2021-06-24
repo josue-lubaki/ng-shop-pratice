@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductsService } from '@ghost/products';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
@@ -13,11 +14,18 @@ import { CartService } from '../../services/cart.service';
 export class OrderSummaryComponent implements OnInit, OnDestroy {
     endSubs$: Subject<any> = new Subject();
     totalPrice!: number;
+    isCheckoutPage = false;
 
     constructor(
         private cartService: CartService,
-        private productsService: ProductsService
-    ) {}
+        private productsService: ProductsService,
+        private router: Router
+    ) {
+        // Vérifier le nom de l'Url actuelle contient 'checkout'
+        this.router.url.includes('checkout')
+            ? (this.isCheckoutPage = true)
+            : (this.isCheckoutPage = false);
+    }
 
     ngOnInit(): void {
         this._getOrderSummary();
@@ -45,5 +53,12 @@ export class OrderSummaryComponent implements OnInit, OnDestroy {
                 });
             }
         });
+    }
+
+    /**
+     * Methode qui permet de naviguer vers la page Checkout
+     */
+    navigateToCheckout() {
+        this.router.navigate(['/checkout']);
     }
 }
