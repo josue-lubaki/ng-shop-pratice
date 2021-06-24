@@ -2,7 +2,6 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, Input, OnInit } from '@angular/core';
 import { CartItem, CartService } from '@ghost/orders';
-import { MessageService } from 'primeng/api';
 import { Product } from '../../models/product';
 
 @Component({
@@ -14,10 +13,7 @@ export class ProductItemComponent implements OnInit {
     @Input()
     product!: Product;
 
-    constructor(
-        private cartService: CartService,
-        private messageService: MessageService
-    ) {}
+    constructor(private cartService: CartService) {}
 
     ngOnInit(): void {}
 

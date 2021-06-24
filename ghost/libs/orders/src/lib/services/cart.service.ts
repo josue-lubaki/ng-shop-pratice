@@ -71,4 +71,21 @@ export class CartService {
         this.cart$.next(cart);
         return cart;
     }
+
+    /**
+     * Methode qui permet de supprimer un article du panier via son ID
+     * @param productiId identifiant du product à supprimer du panier
+     */
+    deleteCartItem(productiId: string) {
+        const cart = this.getCart();
+        const newCart = cart.items?.filter((item) => item.productId !== productiId);
+
+        cart.items = newCart;
+
+        const cartJsonString = JSON.stringify(cart);
+        localStorage.setItem(CART_KEY, cartJsonString);
+
+        // notifier tous les changements au subject cart$ à chaque ajout
+        this.cart$.next(cart);
+    }
 }

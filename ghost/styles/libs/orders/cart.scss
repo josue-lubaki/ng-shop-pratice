@@ -39,6 +39,10 @@
 
       &-quantity{
         margin: 15px 0;
+
+        .p-inputnumber-input{
+          font-size: 1.2em;
+        }
       }
 
       &-subtotal{
