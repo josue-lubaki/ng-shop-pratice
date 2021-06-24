@@ -15,6 +15,9 @@ import { FormBuilder, NgModel } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { OrdersModule } from '@ghost/orders';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { MessagesComponent } from './shared/messages/messages.component';
 
 const routes: Routes = [{ path: '', component: HomePageComponent }];
 
@@ -24,7 +27,8 @@ const routes: Routes = [{ path: '', component: HomePageComponent }];
         HomePageComponent,
         HeaderComponent,
         FooterComponent,
-        NavComponent
+        NavComponent,
+        MessagesComponent
     ],
     imports: [
         BrowserModule,
@@ -34,9 +38,11 @@ const routes: Routes = [{ path: '', component: HomePageComponent }];
         BrowserAnimationsModule,
         ProductsModule,
         UiModule,
-        OrdersModule
+        OrdersModule,
+        ToastModule
     ],
-    providers: [FormBuilder, NgbModal, NgModel],
-    bootstrap: [AppComponent]
+    providers: [FormBuilder, NgbModal, NgModel, MessageService],
+    bootstrap: [AppComponent],
+    exports: [MessagesComponent]
 })
 export class AppModule {}

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { User, UsersService } from '@ghost/users';
 import { MessageService } from 'primeng/api';
-import { timer } from 'rxjs';
+import { Observable, timer } from 'rxjs';
 
 @Component({
     selector: 'admin-users-form',
@@ -138,7 +138,6 @@ export class UsersFormComponent implements OnInit {
                     summary: 'Success',
                     detail: `Category ${response.name} is update`
                 });
-                console.log(response);
                 // Delai avant la rédirection vers la page précedente
                 timer(1500)
                     .toPromise()
