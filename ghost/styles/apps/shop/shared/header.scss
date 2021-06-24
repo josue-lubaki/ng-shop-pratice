@@ -3,6 +3,10 @@ header{
     max-height: 100px;
   }
 
+  .p-badge{
+    font-size: .6em;
+  }
+
   .logo{
 
     img{
@@ -118,6 +122,12 @@ header{
     .logo img{
       width: 100%;
       transition: all .7s ease-in-out;
+    }
+
+    .p-badge{
+      min-width: 1rem;
+      height: 1rem;
+      line-height: 1rem;
     }
 
   }

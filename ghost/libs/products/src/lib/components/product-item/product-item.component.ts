@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, Input, OnInit } from '@angular/core';
-import { Product } from '@ghost/products';
 import { CartItem, CartService } from '@ghost/orders';
+import { Product } from '../../models/product';
 
 @Component({
     selector: 'products-product-item',
@@ -11,7 +11,7 @@ import { CartItem, CartService } from '@ghost/orders';
 })
 export class ProductItemComponent implements OnInit {
     @Input()
-    product?: Product;
+    product!: Product;
 
     constructor(private cartService: CartService) {}
 
@@ -19,7 +19,7 @@ export class ProductItemComponent implements OnInit {
 
     addProductToCart() {
         const cartItem: CartItem = {
-            productId: this.product?.id,
+            productId: this.product.id,
             quantity: 1
         };
         this.cartService.setCartItem(cartItem);

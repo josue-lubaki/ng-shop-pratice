@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Cart, CartItem } from '../models/cart';
 export const CART_KEY = 'cart';
 @Injectable({
     providedIn: 'root'
 })
 export class CartService {
-    cart?: string;
+    /**
+     * @see BehaviorSubject : initialise un Subject en emmettant (emit) une valeur
+     */
+    cart$: BehaviorSubject<any> = new BehaviorSubject(this.getCart());
+
     constructor() {}
 
     /**
@@ -23,9 +28,13 @@ export class CartService {
         }
     }
 
+    /**
+     * Methode qui permet de lire les informations se trouvant dans le localStorage
+     * @returns Cart
+     */
     getCart(): Cart {
-        const cartJSONString: string = localStorage.getItem(CART_KEY) || '{}';
-        const cart: Cart = JSON.parse(cartJSONString);
+        const cartJSONString = localStorage.getItem(CART_KEY);
+        const cart: Cart = cartJSONString !== null ? JSON.parse(cartJSONString) : null;
         return cart;
     }
 
@@ -42,12 +51,12 @@ export class CartService {
 
         if (cartItemExist) {
             cart.items?.map((item) => {
-                if (item.productId === cartItem.productId) {
-                    item.quantity = item.quantity
-                        ? cartItem.quantity
-                            ? item.quantity + cartItem.quantity
-                            : cartItem.quantity
-                        : cartItem.quantity;
+                if (
+                    item.quantity &&
+                    cartItem.quantity &&
+                    item.productId === cartItem.productId
+                ) {
+                    item.quantity = item.quantity + cartItem.quantity;
                 }
                 return item;
             });
@@ -57,6 +66,9 @@ export class CartService {
 
         const initialCartJSON = JSON.stringify(cart);
         localStorage.setItem(CART_KEY, initialCartJSON);
+
+        // notifier tous les changements au subject cart$ à chaque ajout
+        this.cart$.next(cart);
         return cart;
     }
 }
