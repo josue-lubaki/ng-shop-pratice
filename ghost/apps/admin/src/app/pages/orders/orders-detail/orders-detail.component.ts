@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Order, OrdersService } from '@ghost/orders';
+import { Order, OrdersService, ORDER_STATUS } from '@ghost/orders';
 import { MessageService } from 'primeng/api';
-import { ORDER_STATUS } from '../order.constants';
 
 @Component({
     selector: 'admin-orders-detail',
@@ -60,21 +59,23 @@ export class OrdersDetailComponent implements OnInit {
      * @param event nouveau status choisi par l'Utilisateur
      */
     onStatusChange(event: any) {
-        this.orderService.updateOrder({ status: event.value }, this.order.id).subscribe(
-            () => {
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Success',
-                    detail: `Order is update`
-                });
-            },
-            () => {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Error',
-                    detail: 'Order is not Updated'
-                });
-            }
-        );
+        this.orderService
+            .updateOrder({ status: event.value }, this.order.id || '')
+            .subscribe(
+                () => {
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: `Order is update`
+                    });
+                },
+                () => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: 'Order is not Updated'
+                    });
+                }
+            );
     }
 }
