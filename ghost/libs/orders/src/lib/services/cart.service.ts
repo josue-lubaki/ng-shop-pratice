@@ -20,12 +20,22 @@ export class CartService {
     initCartLocalStorage() {
         const cart: Cart = this.getCart();
         if (!cart) {
-            const initialCart = {
-                items: []
-            };
-            const initialCartJSON = JSON.stringify(initialCart);
-            localStorage.setItem(CART_KEY, initialCartJSON);
+            this.emptyCart();
         }
+    }
+
+    /**
+     * Methode qui permet réinitialiser le panier
+     * @return void
+     */
+    emptyCart() {
+        const initialCart = {
+            items: []
+        };
+        const initialCartJSON = JSON.stringify(initialCart);
+        localStorage.setItem(CART_KEY, initialCartJSON);
+        // notifier tous les changements au subject cart$ à chaque modification
+        this.cart$.next(initialCart);
     }
 
     /**
@@ -72,7 +82,7 @@ export class CartService {
         const initialCartJSON = JSON.stringify(cart);
         localStorage.setItem(CART_KEY, initialCartJSON);
 
-        // notifier tous les changements au subject cart$ à chaque ajout
+        // notifier tous les changements au subject cart$ à chaque modification
         this.cart$.next(cart);
         return cart;
     }
@@ -90,7 +100,7 @@ export class CartService {
         const cartJsonString = JSON.stringify(cart);
         localStorage.setItem(CART_KEY, cartJsonString);
 
-        // notifier tous les changements au subject cart$ à chaque ajout
+        // notifier tous les changements au subject cart$ à chaque modification
         this.cart$.next(cart);
     }
 }

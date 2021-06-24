@@ -102,10 +102,16 @@ export class CheckoutPageComponent implements OnInit {
             dateOrdered: `${Date.now()}`
         };
 
-        this.orderService.createOrder(order).subscribe(() => {
-            // redirect to thank you page
-            console.log('Successful added');
-        });
+        this.orderService.createOrder(order).subscribe(
+            () => {
+                // redirect to thank you page
+                this.router.navigate(['/success']);
+                this.cartService.emptyCart();
+            },
+            () => {
+                // display some message to user
+            }
+        );
     }
 
     /**
