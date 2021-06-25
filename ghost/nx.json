@@ -19,13 +19,6 @@
         }
     },
     "projects": {
-        "ng-shop": {
-            "tags": []
-        },
-        "ng-shop-e2e": {
-            "tags": [],
-            "implicitDependencies": ["ng-shop"]
-        },
         "admin": {
             "tags": []
         },
@@ -33,16 +26,23 @@
             "tags": [],
             "implicitDependencies": ["admin"]
         },
-        "products": {
+        "ng-shop": {
             "tags": []
         },
-        "users": {
-            "tags": []
+        "ng-shop-e2e": {
+            "tags": [],
+            "implicitDependencies": ["ng-shop"]
         },
         "orders": {
             "tags": []
         },
+        "products": {
+            "tags": []
+        },
         "ui": {
+            "tags": []
+        },
+        "users": {
             "tags": []
         }
     }
