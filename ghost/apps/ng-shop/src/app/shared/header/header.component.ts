@@ -1,5 +1,5 @@
-/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-import { Component, OnInit } from '@angular/core';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Component } from '@angular/core';
 
 /* Fonction qui permet à l'icône "Hamburger" d'afficher la barre de menu */
 declare function toggleMenu(event: any): void;
@@ -9,11 +9,7 @@ declare function toggleMenu(event: any): void;
     templateUrl: './header.component.html',
     styleUrls: []
 })
-export class HeaderComponent implements OnInit {
-    constructor() {}
-
-    ngOnInit(): void {}
-
+export class HeaderComponent {
     openMenuBar(event: any) {
         toggleMenu(event);
     }

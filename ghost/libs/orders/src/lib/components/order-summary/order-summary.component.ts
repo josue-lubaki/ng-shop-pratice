@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { ProductsService } from '@ghost/products';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
-import { CartItem } from '../../models/cart';
 import { CartService } from '../../services/cart.service';
 
 @Component({

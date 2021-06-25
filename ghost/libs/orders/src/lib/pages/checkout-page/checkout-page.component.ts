@@ -1,17 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsersService } from '@ghost/users';
-import {
-    CartService,
-    Order,
-    OrderItem,
-    OrdersService,
-    ORDER_STATUS
-} from '@ghost/orders';
+import { CartService, Order, OrderItem, OrdersService } from '@ghost/orders';
 
 @Component({
     selector: 'orders-checkout-page',

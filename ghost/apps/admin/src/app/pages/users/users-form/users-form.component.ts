@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { User, UsersService } from '@ghost/users';
 import { MessageService } from 'primeng/api';
-import { Observable, timer } from 'rxjs';
+import { timer } from 'rxjs';
 
 @Component({
     selector: 'admin-users-form',
