@@ -19,3 +19,14 @@
     }
   }
 }
+
+
+@media only screen and (max-width: 640px){
+  .checkout-form{
+    flex-direction: column;
+
+    div{
+      width: 100%;
+    }
+  }
+}

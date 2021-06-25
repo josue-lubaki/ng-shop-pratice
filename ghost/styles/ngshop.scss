@@ -39,3 +39,10 @@
   margin: 0 auto;
   background-color: var(--surface-300);
 }
+
+@media only screen and (max-width: 480px){
+  .p-toast{
+    width: 50vh !important;
+  }
+}
+

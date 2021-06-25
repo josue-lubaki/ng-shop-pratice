@@ -1,5 +1,5 @@
 <div class="cart-page">
-  <div class="p-grid p-mt-4">
+  <div class="p-grid p-mt-4 cart-page-pGrid">
     <div class="p-col-8">
       <div>
         <p-button
@@ -22,7 +22,7 @@
             [src]="cartItem.product.image"
             [attr.alt]="cartItem.product.name">
           </div>
-          <div class="p-col-7">
+          <div class="p-col-7 cart-item-info">
             <div class="cart-item-name">{{ cartItem.product.name }}</div>
             <div class="cart-item-price">{{ cartItem.product.price | currency }}</div>
             <div class="cart-item-remove">

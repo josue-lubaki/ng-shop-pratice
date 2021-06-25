@@ -42,5 +42,20 @@
     }
   }
 
+    .categories-banner{
+      .category-name{
+        font-size: 1em !important;
+      }
+    }
+
+
+}
+
+@media only screen and (max-width:600px){
+  .categories-banner{
+    .category-name{
+      font-size: .8em;
+    }
+  }
 
 }

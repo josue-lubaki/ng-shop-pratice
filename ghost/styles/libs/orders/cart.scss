@@ -13,7 +13,7 @@
 
     &-item{
       background-color: var(--surface-0);
-      border: 1px solid var(--surface-300);
+      border: 1px solid #000;
       padding: 15px;
       border-radius: 15px;
 
@@ -51,6 +51,33 @@
         &-value{
           color: var(--green-600);
         }
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: 600px){
+  .cart-page{
+    &-pGrid{
+      flex-direction: column;
+
+      div{
+        width:100%;
+      }
+    }
+
+    .cart{
+      &-item{
+
+        &-info{
+          text-align: center;
+        }
+
+        &-image{
+          text-align: center;
+        }
+
       }
     }
   }
